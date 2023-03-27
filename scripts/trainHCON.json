@@ -1,0 +1,53 @@
+{
+"ddataDir":          "$smdd_dir/CDD/projects/ML-QM/DataSets/ANI-1_release/",
+"dataDir":          "c:/tmp/ANI",
+"iFile":            "aniGDB_123_z.sqlite",
+"iiFile":            "GDB-9/gdb8_HC.h5",
+"trainSet":         "/train",
+"valSet":           "/val",
+"batch.dropLast":   false,
+"skipFactor":       50,
+
+"atomTypes":        ["H", "C", "O", "N"],
+
+"radialBasis":      "GaussianRadialBasis",
+
+"rem":              "halfWidth = 0.416 => Eta=16)"
+"radialBasisParam": { "nCenters": 8, "centerMin": 0.5, "centerMax": 4.2, "centers": null,
+                      "halfWidth": 0.416, "cutoff": 4.6 },
+
+"angularBasis":     "GaussianAngularBasis",
+"rem":              "angleHalfWidth[Pi] 0.4286 => 6",
+"angularBasisParam":{ "nAngles": 3, "nRadial": 3, "rMin": 1, "rMax": 2, "halfWidth": 1, "angleHalfWidth": 0.4286, "cutoff": 3.1,
+                      "rCenters": null, "aCenters": null },
+
+"batchNormalizationParam": [],
+
+"activation":       "ELU",
+"dropOutPct":       10,
+
+"layerWidth":       [12,6],
+"hasBias":          true,
+ 
+"optType":          "Adam",
+"optParam":         { "lr": 0.0005, "weight_decay": 0.001 },  "rem": "the wd the smaller weights are foced, might need to do this on state dict to avoid wd on output layer",
+"sscheduler":        "None",
+"scheduler":        "ReduceLROnPlateau",
+"schedulerParam":   { "factor":0.5, "patience":10, "verbose": true},
+"sscheduler":        "StepLR",
+"sschedulerParam":   { "step_size":150, "gamma":0.66},
+
+"lloss":             "ExpLoss",
+"llossParam":        { "start": 10, "tau": 0.5 },
+"loss":             "MSELoss",
+"lossParam":        {  },
+
+"regularizer":      "Clipper",
+"regularizeParam":  { "maxValue": 3.0, 
+                    "paramNamePattern": ".+ AtNet\\..+ layer\\d+.*" },
+
+"bbatchSize":        1,
+"batchSize":        15,
+"epochs":           10000
+
+}

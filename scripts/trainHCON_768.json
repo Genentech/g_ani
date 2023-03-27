@@ -1,0 +1,72 @@
+{
+"Precision":        { "nnpPrecision": 32, "sumPrecision": 64 },
+
+"trainData": {
+   "type":             "ANI-1",
+   "dataDir":          "$smdd_dir/CDD/projects/ml_qm/DataSets/ANI-1_release/",
+   "dataDir":          "c:/tmp/ANI",
+   "iFile":            "ani_gdb_s0[1-5].h5",
+   "tFile":            "ani1_gdb10_ts.h5",
+   "skipFactor":       100,
+   "valSmilesFile":    "$installDir/../../ml_qm_data/ani.5.0.val.gz",
+   "maxEnergy_kcal":   300
+},
+
+
+"batch.dropLast":   false,
+"fuzzCoordinates":  {"fuzzMin":1e-5, "fuzzMax": 1e-3, "fuzzEpochs":100},
+"atomTypes":        ["H", "C", "N", "O"],
+
+"radialBasis":      "GaussianRadialBasis",
+"rem":              "halfWidth = 0.416 => Eta=16)",
+"radialBasisParam": { "nCenters": 32, "centerMin": 0.5, "centerMax": 4.34, "centers": null,
+                      "halfWidth": 0.416, "cutoff": 4.6, "optimizeParam": false, "optimizePositions": false },
+
+"angularBasis":     "GaussianAngularBasis",
+"rem":              "angleHalfWidth[Pi] 0.4286 => 6",
+"rem":              "Optimizing zeta is usually not possible because it has a very high gradient due to the pow() relationship ",
+"angularBasisParam":{ "nAngles": 8, "nRadial": 8, "rMin": 0.5, "rMax": 2.75, "halfWidth": 0.416, "angleHalfWidth": 0.4286, "cutoff": 3.1,
+                      "rCenters": null, "aCenters": null,
+                      "optimizeParam": ["rem-rCenter","rem-aCenter", "rem-zeta", "rem-nEta" ] },
+
+"activation":       "Gaussian",
+"activation":       "CELU",
+"activationParam":  {"alpha": 0.1},
+
+"#batchNormParam":   [],
+"batchNormParam":   "None",
+"dropOutPct":       10,
+"layers":          [128,128,64],
+"hasBias":          true,
+
+"optType":          "Adam",
+"optParam":             { "lr": 0.0005, "weight_decay": 1e-6  },
+"rem-radialBasisOptParam": [{ "lr": 0.00005,"weight_decay": 1e-6 },
+                        { "lr": 0.0005  }],
+"rem-angularOptParam":     [{ "lr": 0.00005, "weight_decay": 1e-6 } ,
+                        { "lr": 0.00005 } ,
+                        { "lr": 0.04  } ,
+                        { "lr": 0.0008 , "weight_decay": 1e-6} ],
+
+"sscheduler":        "None",
+"scheduler":        "ReduceLROnPlateau",
+"schedulerParam":   { "factor":0.5, "patience":10, "verbose": true},
+"sscheduler":        "StepLR",
+"sschedulerParam":   { "step_size":150, "gamma":0.66},
+
+"loss":             "MSELoss",
+"loss":             "ExpLossKhan",
+"lossParam":         { },
+"llossParam":        { "tau": 5 },
+
+"rregularizer":      "None",
+"regularizer":      "Clipper",
+"regularizeParam":  { "maxValue": 3.0,
+                    "paramNamePattern": ".+ AtNet\\..+ layer\\d+.*" },
+"bbatchSize":        1,
+"batchSize":        500,
+"epochs":           10000,
+"preRunMSE":        800
+
+
+}

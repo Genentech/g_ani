@@ -1,0 +1,28 @@
+
+package:
+  name: ml_qm
+  version: {version}
+
+source:
+  url: ../dist/ml_qm-{version}.tar.gz
+  md5: {md5}
+
+build:
+  noarch: python
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - openeye-toolkits
+    - cairo
+
+test:
+  requires:
+    - pytest
+    - scripttest
+  imports:
+   - ml_qm

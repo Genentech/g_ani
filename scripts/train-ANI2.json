@@ -1,0 +1,69 @@
+{
+"Precision":        { "nnpPrecision": 32, "sumPrecision": 32 },
+
+"trainData": {
+   "type":             "ANI-2",
+   "dataDir":          "$smdd_dir/CDD/projects/ml_qm/DataSets/ANI-2x_dataset/",
+   "dataDir":          "c:/tmp/ANI2",
+   "iFile":            "*00[02]9.h5",
+   "tFile":            "ani1_gdb10_ts.h5",
+   "seed":             42424242,
+   "splitStrategy":    "splitByFraction",
+   "valFraction":      0.2,
+   "testFraction":     0,
+   "atomizationERange": [-500,800],
+   "maxEnergy_kcal":   9999,
+   "skipFactor":       5
+},
+
+
+"batch.dropLast":   true,
+"pre.fuzzCoordinates":{"fuzzMin":5e-5, "fuzzMax": 1e-3, "fuzzEpochs":100},
+"atomTypes":        ["H", "C", "N", "O", "F", "S", "Cl" ],
+
+
+"radialBasis":      "GaussianRadialBasis",
+"rem":              "halfWidth = 0.416 => Eta=16)",
+"radialBasisParam": { "nCenters": 16, "centerMin": 0.9, "centerMax": 4.93, "centers": null,
+                      "halfWidth": 0.294, "cutoff": 5.2, "optimizeParam": false, "optimizePositions": false },
+
+"angularBasis":     "GaussianAngularBasis",
+"rem":              " nAngles, nRadial, rMin, rMax, halfWidth, angleHalfWidth[Pi] 0.4286 => 6, cutoff",
+"angularBasisParam":{ "nAngles": null, "nRadial": 4, "rMin": 0.9, "rMax": 3.08, "halfWidth": 0.68, "angleHalfWidth": 0.187, "cutoff": 3.8,
+                      "rCenters": null, 
+                      "aCenters": [1.9634954e-01,5.8904862e-01,9.8174770e-01,1.3744468e+00,1.7671459e+00,2.1598449e+00,2.5525440e+00,2.9452431e+00],
+                      "optimizeParam": [ "rem-rCenter","rem-aCenter", "rem-zeta" ,"rem-nEta" ] },
+
+"activation":       "SSP",
+"activationParam":  {},
+"dropOutPct":       0,
+"pre.dropOutPct":   5,
+"batchNormParam":   [],
+"layers":           [{ "out_features": 293 },
+                     { "out_features": 97 },
+                     { "out_features": 67 },
+                     { "out_features": 131,  "batchNormParam": null} ],
+"hasBias":          false,
+"initWeightMethod": "xavier_normal",
+ 
+"optType":          "AdamW",
+"optParam":         { "lr": 0.00015, "weight_decay": 1e-6 },
+"scheduler":        "CosineLRWithRestarts",
+"schedulerParam":   { "batch_size":2560, "epoch_size": 110473909, "restart_period": 5, "t_mult":1.2, "verbose":true },
+
+"loss":             "ExpLossKhan",
+"lossParam":        {  },
+"pre.loss":         "MSELoss",
+"pre.lossParam":    { },
+"pre.loss":         "ExpLoss",
+"pre.lossParam":    { "tau": 0.2 },
+
+"regularizer":      "None",
+"batchSize":        2560,
+"batchSize.descriptors.mult": 10,
+"epochs":           4000,
+"pre.epochs":       1000,
+"maxNoImprovementEpochs": 300,
+"preRunMSE":        13.5
+
+}

@@ -1,0 +1,16 @@
+# include
+include README.md
+include HISTORY.md
+include setup.py
+recursive-include scripts sdfNNP*.pl
+recursive-include ml_qm *.ini
+recursive-include scripts *.py
+
+# exclude
+#global-exclude __pycache__
+#global-exclude *.pyc
+#global-exclude *.rst
+#prune tests
+#prune docs
+#prune subtasks
+#prune jupyter

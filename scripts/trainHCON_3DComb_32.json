@@ -1,0 +1,47 @@
+{
+"Precision":        { "nnpPrecision": 32, "sumPrecision": 64 },
+
+"rem":    "This is for the testing framework do not change parameters",
+"dataDir":          "$smdd_dir/CDD/projects/ml_qm/DataSets/ANI-1_release/",
+"dataDir":          "c:/tmp/ANI",
+"iFile":            "ani_gdb_s0[1234].h5",
+"tFile":            "ani1_gdb10_ts.h5",
+       "valSmilesFile":    "$installDir/../../ml_qm_data/all_val.txt.gz",
+"tstSmilesFile":    "$installDir/../../ml_qm_data/all_tst.txt.gz",
+"batch.dropLast":   false,
+"maxEnergy_kcal":   20,
+"skipFactor":       100,
+
+"atomTypes":        ["H", "C", "N", "O"],
+
+"radialBasis":      "GaussianRadialBasis",
+"radialBasisParam": { "nCenters": 2, "centerMin": 1.5, "centerMax": 3, "centers": null,
+                      "halfWidth": 1.5, "cutoff": 4.6, "optimizeParam": false, "optimizePositions": false },
+
+"angularBasis":     "GaussianThirdDistCombBasis",
+"angularBasisParam":{ "nThirdDist": 8, "nRadial": 8, "rMin": 0.5, "rMax": 2.75, "halfWidth": 0.416, "thirdDistFactor": 0.41, "cutoff": 3.1,
+                      "rCenters": null, "trdCenters": null,
+                      "optimizeParam": ["rem-rCenter","rem-trdCenter", "rem-nEtaThirdDist", "rem-nEta" ] },
+
+
+"activation":       "Gaussian",
+"dropOutPct":       10,
+"layers":           [128,128,64],
+"hasBias":          true,
+
+"optType":          "AdamW",
+"optParam":         { "lr": 0.005, "weight_decay": 1e-6  },
+"scheduler":        "CosineLRWithRestarts",
+"schedulerParam":   { "batch_size":2560, "epoch_size": 6000000, "restart_period": 5, "t_mult":1.2, "verbose":true },
+
+"loss":             "MSELoss",
+"lossParam":        {  },
+
+"regularizer":      "Clipper",
+"regularizeParam":  { "maxValue": 3.0,
+                    "paramNamePattern": ".+ AtNet\\..+ layer\\d+.*" },
+"bbatchSize":        1,
+"batchSize":         2560,
+"epochs":            10000
+
+}

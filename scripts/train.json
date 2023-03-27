@@ -1,0 +1,35 @@
+{
+"dataDir":          "$smdd_dir/CDD/projects/ML-QM/DataSets/GDB-9",
+"iFile":            "gdb8_HC.h5",
+"trainSet":         "/train",
+"valSet":           "/val",
+"batch.dropLast":   false,
+
+"atomTypes":        ["H", "C"],
+
+"radialBasis":      "gaussian",
+"rem":              " nCenters, centerMin, centerMax, halfWidth, cutoff",
+"radialBasisParam": [  8,        0.5,       4.2,       0.416,     4.6],
+
+"aangularBasis":     "GaussianAngularBasis",
+"angularBasis":     "None",
+"rem":              " nAngles, nRadial, rMin, rMax, halfWidth, angleHalfWith[Pi] 0.2143 => 6, cutoff",
+"angularBasisParam":[    3,       3,     1,    2,      1,        0.2143,                      3.1 ],
+
+"activation":       "Gaussian",
+"layerWidth":       [6,3],
+"hasBias":          true,
+ 
+"optType":          "Adam",
+"optParam":         { "lr": 0.001 },
+"scheduler":        "StepLR",
+"schedulerParam":   { "step_size":150, "gamma":0.66},
+
+"regularizer":      "Clipper",
+"regularizeParam":  { "maxValue": 3.0, 
+                    "paramNamePattern": ".+ AtNet\\..+ layer\\d+.*" },
+"bbatchSize":        1,
+"batchSize":        150,
+"epochs":           10000
+
+}

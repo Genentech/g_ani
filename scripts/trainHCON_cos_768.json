@@ -1,0 +1,71 @@
+{
+"Precision":        { "nnpPrecision": 32, "sumPrecision": 64 },
+
+"dataDir":          "$smdd_dir/CDD/projects/ml_qm/DataSets/ANI-1_release/",
+"dataDir":          "c:/tmp/ANI",
+"iFile":            "ani_gdb_s0*.h5",
+"iFile":            "ani_gdb_s0[1234].h5",
+"tFile":            "ani1_gdb10_ts.h5",
+"valSmilesFile":    "$installDir/../../ml_qm_data/all_val.txt.gz",
+"tstSmilesFile":    "$installDir/../../ml_qm_data/all_tst.txt.gz",
+"batch.dropLast":   false,
+"maxEnergy_kcal":   20,
+"rem-maxEnergyLowMW_kcal":   40,
+"fuzzCoordinates":  {"fuzzMin":1e-5, "fuzzMax": 1e-3, "fuzzEpochs":100},
+"skipFactor":       110,
+
+"atomTypes":        ["H", "C", "N", "O"],
+
+"radialBasis":      "GaussianRadialBasis",
+"rem":              "halfWidth = 0.416 => Eta=16)",
+"radialBasisParam": { "nCenters": 32, "centerMin": 0.5, "centerMax": 4.34, "centers": null,
+                      "halfWidth": 0.416, "cutoff": 4.6, "optimizeParam": false, "optimizePositions": false },
+
+"angularBasis":     "GaussianCosineBasis",
+"angularBasisParam":{ "nAngles": 8, "nRadial": 8, "rMin": 0.5, "rMax": 2.75, "halfWidth": 0.416, "angleHalfWidth": 0.25, "cutoff": 3.1,
+                      "rCenters": null, "aCenters": null,
+                      "optimizeParam": ["rem-rCenter","rem-aCenter", "rem-aNEta", "rem-nEta" ] },
+"activation":       "myCELU",
+"activationParam":  {"alpha": 0.1},
+
+"#batchNormParam":   [],
+"batchNormParam":   "None",
+"dropOutPct":       10,
+"pre.dropOutPct":   20,
+"initWeight":       { "method": "khan", "gain": 1.41 },
+"layers":          [{ "out_features": 128, "initWeight": { "method": "khan", "gain": 10 } },
+                    { "out_features": 128 },
+                    { "out_features": 64,  "batchNormParam": null} ],
+"hasBias":          true,
+
+"optType":          "AdamW",
+"optParam":             { "lr": 0.0005, "weight_decay": 1e-6  },
+"rem-radialBasisOptParam": [{ "lr": 0.00005,"weight_decay": 1e-6 },
+                        { "lr": 0.0005  }],
+"rem-angularOptParam":     [{ "lr": 0.00005, "weight_decay": 1e-6 } ,
+                        { "lr": 0.00005 } ,
+                        { "lr": 0.04  } ,
+                        { "lr": 0.0008 , "weight_decay": 1e-6} ],
+
+"scheduler":        "CosineLRWithRestarts",
+"schedulerParam":   { "batch_size":2560, "epoch_size": 17613514, "restart_period": 5, "t_mult":1.2, "verbose":true },
+"pre.scheduler":    null,
+
+"loss":             "ExpLossKhan",
+"lossParam":         { },
+"pre.loss":         "ExpLoss",
+"pre.lossParam":    { "tau": 5 },
+
+"regularizer":      "Clipper",
+"regularizeParam":{ "maxValue": 3.0,
+                    "paramNamePattern": ".+ AtNet\\..+ layer\\d+.*" },
+"bbatchSize":        1,
+"batchSize":        500,
+"batchSize.descriptors.mult": 10,  "rem": "int: multiply to batchsize to speed things up",
+"batchSize.descriptors.mult": 2,  "rem": "int: multiply to batchsize to speed things up",
+"maxNoImprovementEpochs": 2,
+"epochs":           10000,
+"preRunMSE":        800
+
+
+}
