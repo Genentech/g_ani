@@ -149,7 +149,7 @@ def setup_C3H12_N4H12_Examples(rep:int = 1, yml_name:str = "scripts/testDistNet.
 
 
 class TestDataSet():
-    def setup(self):
+    def setup_method(self):
         self.conf, self.device, self.data_set, self.conformers \
             = setup_2NH3_Examples()
 

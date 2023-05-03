@@ -8,7 +8,7 @@ torch.set_printoptions(linewidth=200)
 
 
 class TestMemLoad():
-    def setup(self):
+    def setup_method(self):
         jsonFile = 'scripts/trainHCON_Bump_48.json'
         with open(jsonFile) as jFile:
             self.conf = json.load(jFile)

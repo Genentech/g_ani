@@ -19,7 +19,7 @@ torch.set_printoptions(linewidth=200)
 class TestMEMSingleDataSet:
     """ Test MEMSingleDataSet
     """
-    def setup(self):
+    def setup_method(self):
         jsonFile = 'scripts/trainHCON_Bump_48.json'
         with open(jsonFile) as jFile:
             self.conf = json.load(jFile)
@@ -53,7 +53,7 @@ class TestMEMSingleDataSet:
 
 class TestMemBatch:
     """ Test MEMSingleDataSet """
-    def setup(self):
+    def setup_method(self):
         self.memDS = MEMSingleDataSet('val') # pylint: disable=W0201
         with MolInputStream("tests/data/N2_profile.sdf") as molIt:
             for i,mol in enumerate(molIt): # pylint: disable=W0612
@@ -99,7 +99,7 @@ class TestMemBatch:
 
 class TestMemBatch2():
     """ TestMemBatch2 """
-    def setup(self):
+    def setup_method(self):
         self.confIDs = [1, 2, 0, 4, 3] # pylint: disable=W0201
 
         nGPU=1

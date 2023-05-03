@@ -3,16 +3,8 @@ use warnings;
 
 $test = <<'TEST';
 
-sdfNNPConfAnalysis.pl -in ~/dev/ml_qm_data/4667.sdf -out t.sdf -omegaOpt "-includeInput true -sampleHydrogens -searchff mmff94s -ewindow 50 -maxconfs 50 "
+sdfNNPConfAnalysis.pl -in tests/data/CCCC.sdf -out t.sdf -omegaOpt "-includeInput true -sampleHydrogens -searchff mmff94s -ewindow 50 -maxconfs 50 "
 
-or
-
-mysub.py -limit 0:20 -totalMem 15 -nCPU 2 -nGPU 1 -jobName testNNPConfA <<'coms'
-#!/bin/tcsh -f
-   source /system/gredit/clientos/etc/profile.d/lmod.csh;
-   source ~cdduser/prd/bin/strain.nnp.csh
-   time sdfNNPConfAnalysis.pl -in ~/dev/ml_qm_data/4667.sdf -out 4667.nnpconfa.sdf -sampleOtherMin -debug
-'coms'
 TEST
 
 
@@ -27,9 +19,8 @@ use POSIX ":sys_wait_h";
 my($omegaOpt ) = "-includeInput true -sampleHydrogens -searchff mmff94s -ewindow 50 -maxconfs 650 ";
 #my($omegaOpt ) = "-includeInput true -searchff mmff94s -ewindow 50 -maxconfs 10 ";
 my($NNPCommand) = "sdfMOptimizer.py";
-#my($NNPCommand) = "sdfGeomeTRIC.py";
 my($nnpOpt) = "-maxiter 2000 -nGPU 1 -trust 1";
-my($nnpConf) = "~smdi/prd/ml_qm_data/nnp/ani22/bb/bb.3.json";
+my($nnpConf) = "data/nnp/ani22/bb/bb.3.json";
 
 $use = <<USE;
 sdfNNPConfAnalysis.pl [-ref alignRef.sdf] [-nnpOpt s] [-omegaOpt s]
@@ -73,17 +64,6 @@ GetOptions("in=s" =>\$in,
            "omegaOpt=s" => \$omegaOpt) || die $use;
 $#ARGV == -1 || die $use;
 
-if( $nGPU > 0 && ! defined($ENV{'CUDA_VISIBLE_DEVICES'}) && $#ARG > 1 )
-{  my(@coms) = split(/ /, "mysub.py -q bronze -limit 0:20 -totalMem 15 -nCPU 3 -jobName int.nnpstrain -nGPU 1 -interactive -- tcsh -c");
-   warn("No GPU found, using mysub with 20min limit\n\n");
-   my($coml) = "source ~cdduser/$ENV{PYTHON_LEVEL}/bin/strain.nnp.csh;"
-              ."$0";
-   foreach ( @ARG ) { $coml .= " '$_'" }
-   push(@coms, $coml);
-   warn( join(":",@coms));
-   exec(@coms);
-}
-
 $in && $out || die $use;
 $tmpBase = "/tmp/mmca.$$";
 if($ENV{'TMPDIR'}) { $tmpBase = "$ENV{'TMPDIR'}/mmca.$$" }
@@ -94,17 +74,13 @@ $omegaOpt = "-canonOrder false $omegaOpt";
 $nnpOpt = "-conf $nnpConf $nnpOpt";
 $debug && ($nnpOpt = "-logINI debug $nnpOpt");
 
-# @constrVals1 = (".8", ".2", ".05", ".0125");
 # distributes median of RMSD at: 0.1, 0.15, 0.2, 0.24, local min is 0.25
-#@constrVals1 = ("4", "1", ".25", ".0625");
 @constrVals1 = ("1", ".2", ".04", ".008");
 @constrVals1 = (".8", ".2", ".05", ".0125");
-#@constrVals2 = ("0", "0", "0", "0");
 @constrLbls  = ("50", "10", "2", "0.4");
 
 my($constrValsList) = join(",",@constrVals1);
 
-our($sToKcal) = 0.000238845 * 300; # 300 K
 *OUT = *STDOUT;
 if( $out !~ /^.sdf$/i )
 {  open(OUT, ">$out") || die $!;
@@ -321,7 +297,6 @@ COMS
    &appendDeltaE("$tmpBase.hc.2.sdf", 4/$constrLbls[1], "cstr $constrLbls[1]", $eGMin);
    &appendDeltaE("$tmpBase.hc.3.sdf", 4/$constrLbls[2], "cstr $constrLbls[2]", $eGMin);
    &appendDeltaE("$tmpBase.hc.4.sdf", 4/$constrLbls[3], "cstr $constrLbls[3]", $eGMin);
-#   &appendDeltaE("$tmpBase.hc.5.sdf", 4/$constrLbls[4], "cstr $constrLbls[4]", $eGMin);
    &appendDeltaE("$tmpBase.lo.sdf",    5, "loc Min", $eGMin, $sGMin);
    &appendDeltaE("$tmpBase.gmin.sdf", 10, "glb Min", $eGMin, $sGMin);
 

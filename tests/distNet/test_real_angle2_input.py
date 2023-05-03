@@ -6,7 +6,7 @@ from tests.distNet.test_data_set import setup_2NH3_Examples
 
 
 class TestToInput():
-    def setup(self):
+    def setup_method(self):
         self.conf, self.device, data_set, _ = setup_2NH3_Examples()
         cutoff = self.conf['angleNet']['angularCutoff']
         confIds = torch.tensor([0,1])

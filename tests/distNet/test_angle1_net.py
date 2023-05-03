@@ -12,7 +12,7 @@ from cdd_chem.util import log_helper
 log_helper.initialize_loggger(__name__, None)
 
 class TestAngleNet1():
-    def setup(self):
+    def setup_method(self):
         self.conf, device, self.data_set, _ = setup_2NH3_Examples()
         confIds = torch.tensor([0,1])
         self.dloader = DataLoader(self.data_set, confIds, 2)
@@ -54,7 +54,7 @@ class TestAngleNet1():
 
 
 class TestAngleNet12():
-    def setup(self):
+    def setup_method(self):
         self.conf, self.device, self.data_set, _ = setup_CH4_2NH3_Examples()
         self.module = AngleNet1(self.conf)
         self.module = self.module.to(self.device)

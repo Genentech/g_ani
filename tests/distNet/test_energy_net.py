@@ -10,7 +10,7 @@ from cdd_chem.util import log_helper
 log_helper.initialize_loggger(__name__, None)
 
 class TestEnergyNet():
-    def setup(self):
+    def setup_method(self):
         self.conf, self.device, data_set, _ = setup_CH4_2NH3_Examples()
         self.conf['radialNet']['radialCutoff'] = 3.2  # just for testing
         confIds = torch.tensor([0,1,2])

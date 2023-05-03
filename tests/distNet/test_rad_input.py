@@ -6,7 +6,7 @@ from ml_qm.distNet.data_loader import DataLoader
 from tests.distNet.test_data_set import setup_2NH3_Examples
 
 class TestToInput():
-    def setup(self):
+    def setup_method(self):
         duplicates = 2
         self.conf, self.device, data_set, _ = setup_2NH3_Examples(duplicates)
         self.conf['radialNet']['radialCutoff'] = 3.2  # just for testing

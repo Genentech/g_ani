@@ -3,19 +3,12 @@ use warnings;
 
 $test = <<'TEST';
 
-cat ~/dev/ml_qm/data/4667.sdf ~/dev/ml_qm_data/4667.sdf \
+cat tests/data/CCCC.sdf\
 | scripts/sdfNNPConfSample.pl -in .sdf -out t.sdf \
    -nnpOpt "-maxiter 10 -nGPU 1 -trust 1"
 
-or
-
-mysub.py -limit 0:20 -totalMem 20 -nCPU 2 -nGPU 1 -jobName testNNPConfA <<'coms'
-#!/bin/tcsh -f
-   source /system/gredit/clientos/etc/profile.d/lmod.csh;
-   source ~cdduser/prd/bin/strain.nnp.csh
-   time sdfNNPConfAnalysis.pl -in ~/dev/ml_qm_data/4667.sdf -out 4667.nnpconfa.sdf -debug
-'coms'
 TEST
+
 $script=$0;
 $script =~ /^\// || ( $script="$ENV{PWD}/$script" );
 
@@ -43,17 +36,6 @@ sdfNNPConfSample.pl [-ref alignRef.sdf] [-nnpOpt s] [-omegaOpt s] [-nnpConf s]
 If used with sdfMultiplexer use the -groupByAtomCount to make sure the records
 for one input structre are kept together.
 USE
-
-if( ! defined($ENV{'CUDA_VISIBLE_DEVICES'}) && $#ARGV > 1 && ! grep { /-h/i } @ARGV )
-{  my(@coms) = split(/ /, "mysub.py -limit 0:20 -totalMem 20 -nCPU 2 -jobName int.nnpstrain -nGPU 1 -interactive -- tcsh -c");
-   warn("No GPU found, using mysub with 20min limit\n\n");
-   my($coml) = "source ~cdduser/$ENV{PYTHON_LEVEL}/bin/strain.nnp.csh;"
-              ."$0";
-   foreach ( @ARGV ) { $coml .= " '$_'" }
-   push(@coms, $coml);
-   warn( join(":",@coms));
-   exec(@coms);
-}
 
 my( $com, $in, $ref, $out, $generate3D, $debug,)
   = ("", "",   "",    "",  "",          "" );

@@ -5,7 +5,7 @@ from ml_qm.distNet.data_loader import DataLoader
 from tests.distNet.test_data_set import setup_2NH3_Examples
 
 class TestToInput():
-    def setup(self):
+    def setup_method(self):
         self.conf, self.device, data_set, _ = setup_2NH3_Examples()
         confIds = torch.tensor([0,1])
         self.dloader = DataLoader(data_set, confIds, 2)
