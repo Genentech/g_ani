@@ -23,8 +23,6 @@ Relevant references are:
      git clone https://github.com/Genentech/g_ani.git
 
    - create the conda package
-
-
      you might need to issue `conda config --set channel_priority strict`
 
      cd g_ani
