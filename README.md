@@ -2,7 +2,7 @@
 
  g_ANI contains a reimplementation of the ANI Neural Net Potential developed at Genentech.
 It also contains a command line tool [sdfNNPConfAnalysis.pl](iscripts/sdfNNPConfAnalysis.pl)
-computes the strain in a small molecule ligand confomation.
+computes the strain in a small molecule ligand confomation. This allows the computation of strain energy with QM accuracy in just a few minutes on a GPU while analyzing hundreths of conformations.
 
 Relevant references are:
    - [ANI-1: an extensible neural network potential with DFT accuracy at force field computational cost](https://pubs.rsc.org/en/content/articlelanding/2017/SC/C6SC05720A)
@@ -14,9 +14,7 @@ Relevant references are:
      ```
      git lfs install
      ```
-
    - clone these three packages into one directory
-
      ```
         git clone https://github.com/Genentech/cdd_chem.git
         git clone https://github.com/Genentech/t_opt.git
@@ -35,7 +33,6 @@ Relevant references are:
       ```
       conda activate g_ANI
       ```
-      
    - To run the strain energy calculation you need the following tools from [OpenEye](https://www.eyesopen.com/).<br/>
      Note: you can run minimizations using sdfMOptimizer.py and singlepoint calculations with sdfNNP.py without openeye tools
            or licenses as the cdd_chem package will use RDKit if OEChem is not available.
@@ -45,6 +42,12 @@ Relevant references are:
 
    - All NNP calculations will run significanlty faster if you have a GPU available on your computer. If a GPU is not avaialble the slowe CPU implementation will be used.
 
+   - You will need a ~8GB of memory to run the esample below. Be aware that to little memory will cause errors with unexpected messages.
+   - Run test example:
+   ```
+   scripts/sdfNNPConfAnalysis.pl -in tests/data/CCCC.sdf -out out.sdf -sampleOtherMin
+   ```
+   The input file contains two conformations of butane. The output file will contain 16 conformations. 8 for each input conformation evaluating the strain and highlighting the areas of the input conformation with the highest strain.
 
 
 ## Features
