@@ -81,7 +81,11 @@ The output file will contain the following fields:
 ### Example
 
 The following ligand conformation was retrieved from the PDB ([5BVF](https://www.rcsb.org/structure/5BVF)) of a small molecule bound to ERK2. This is one of the few compound that is bound in what is deamed a high energy conformation.
-![5BVF Pocket](../documentation/5bvf/5bvf_pocket.jpg)
+
+![5BVF Pocket](documentation/5bvf/5bvf_pocket.jpg)
+<br/>Ligand bound to ERK2 in 5VFB
+
+
 
 ## Features
 
