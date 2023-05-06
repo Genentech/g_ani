@@ -78,6 +78,14 @@ The output file will contain the following fields:
    - **deltaE** relative energy of this conformation ot the global minimum [kcal/mol]
    - **NNP_Energy_kcal_mol** absolute energy of this conformation as computed with the g_ani NNP.
 
+### Example
+
+The following ligand conformation was retrieved from the PDB ([5BVF](https://www.rcsb.org/structure/5BVF)) of a small molecule bound to ERK2. This is one of the few compound that is bound in what is deamed a high energy conformation.
+
+![5BVF Pocket](documentation/5bvf/5bvf_pocket.jpg)
+<br/>Ligand bound to ERK2 in 5VFB
+
+
 
 ## Features
 
