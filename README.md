@@ -49,7 +49,8 @@ Relevant references are:
    ```
    The input file contains two conformations of butane. The output file will contain 16 conformations. 8 for each input conformation evaluating the strain and highlighting the areas of the input conformation with the highest strain (cf. below).
 
-## Strain Energy Method
+## Strain Energy Calculation
+### Method
 This implementation follows the definition by Boström et.al. (Conformational energy penalties of protein-bound ligands, JCAMD 1998).
 
 - A conformational search is performed by enumerating conformers with oemga and mimizing them with the NNP. By default up to 650 conformations are enumerated to be complete.
@@ -84,14 +85,20 @@ The following ligand conformation was retrieved from the PDB ([5BVF](https://www
 
 ![5BVF Pocket](documentation/5bvf/5bvf_pocket.jpg)
 <br/>Ligand bound to ERK2 in 5VFB
-<table><tr><td><img src='documentation/5bvf/5bvf.gif'/></td>
-           <td><img src='documentation/5bvf/5bvf_WithInput.gif'/></td></tr>
-       <tr><td>Strain analysis animation</td><td>Strain analysis animation with overlay of input</td></tr>
-       <tr><td colspan='2'><small>
-               RMSD to Input [A]<br/>
-                relative Energy to Global Min [kcal/mol]</small</td></tr></table>
+<table><tr><td align="center"><img src='documentation/5bvf/5bvf.gif'/></td>
+           <td align="center"><img src='documentation/5bvf/5bvf_WithInput.gif'/></td></tr>
+       <tr><td align="center">Strain analysis animation</td>
+           <tdalign="center">Strain analysis animation with overlay of input</td></tr>
+       <tr><td colspan='2'>
+         Result of strain energy computaiton on ligend in 5BVF. As can be seen the largest train is on the phynly ring on the right. It clearly relaxes from the position in the input conformation to the conformation in the contraint minima (cnst 0.4). Note also that the global minimum exhebits an intramolecular hydrogen bond. The energy of the global minimum is probably not reflective of the energy in solution phase as the NNP was traiend on gas phaseDFT calculations. Thus the strain in this calculation might be overestimated.</br>
+         RMSD to Input [A]. Relative Energy (dE) to Global Minimum [kcal/mol]</td></tr></table>
            
-<br/>Ligand bound to ERK2 in 5VFB
+### Explaination
+The constraint minimization account for multiple non-phisical sources of strain:
+
+- Differnces between the method used to genrate the input confomation and the NNP used in evaluatingthe striain. Small changes int the bond length deemed to be optimal between two atoms would yield very hi energie differences. Allowing the slight relaxation will remove this artificat.
+-
+- Molecular flexibility of the protein and ligand always allow for some movement.
 
 
 
