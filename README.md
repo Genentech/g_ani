@@ -84,6 +84,15 @@ The following ligand conformation was retrieved from the PDB ([5BVF](https://www
 
 ![5BVF Pocket](documentation/5bvf/5bvf_pocket.jpg)
 <br/>Ligand bound to ERK2 in 5VFB
+<table><tr><td><img src='documentation/5bvf/5bvf.gif'/></td>
+           <td><img src='documentation/5bvf/5bvf_WithInput.gif'/></td></tr>
+       <tr><td>Strain analysis animation</td><td>Strain analysis animation with overlay of input</td></tr>
+       <tr><td colspan='2'><small>
+               RMSD to Input [A]<br/>
+                relative Energy to Global Min [kcal/mol]</small</td></tr></table>
+           
+<br/>Ligand bound to ERK2 in 5VFB
+
 
 
 
