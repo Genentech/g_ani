@@ -125,10 +125,10 @@ As expected both method classify most confromations from the pdb as low strained
 <table>
  <tr><th colspan='4'>Conformations strained according to MMFF94 but not strained accoring to gANI</th></tr>
  <tr>
-  <td><img src='documentation/MMFF_strained.jpg></td>
-  <td><img src='documentation/5jn8.jpg></td>
-  <td><img src='documentation/4dvi.jpg></td>
-  <td><img src='documentation/5tz3.jpg></td>
+  <td><img src='documentation/MMFF_strained.jpg'/></td>
+  <td><img src='documentation/5jn8.jpg'/></td>
+  <td><img src='documentation/4dvi.jpg'/></td>
+  <td><img src='documentation/5tz3.jpg'/></td>
  </tr>
 <tr>
  <td>[Ledgend](documentation/confColors.jpg)</tr>
@@ -141,12 +141,12 @@ As expected both method classify most confromations from the pdb as low strained
  <tr><td colspan=4'4'/></tr>
  <tr><th colspan='4'>Conformations strained according to gANI but not strained accoring to MMFF94</th></tr>
  <tr>
-  <td><img src='documentation/GANNI_strained.jpg></td>
-  <td><img src='documentation/2ori.jpg></td>
-  <td><img src='documentation/5lrd.jpg.</td>
-  <td><img src='documentation/5xs2.jpg></td>
+  <td><img src='documentation/GANNI_strained.jpg'/></td>
+  <td><img src='documentation/2ori.jpg'/></td>
+  <td><img src='documentation/5lrd.jpg'/></td>
+  <td><img src='documentation/5xs2.jpg'/></td>
  </tr>
- <td>[Ledgend](documentation/confColors.jpg)</tr>
+ <td>[Ledgend](documentation/confColors.jpg'/></tr>
   <td colspan='2>Fro 2ori and 5lrd the gANI minimum conformation deviates significanly from the crysallographic conformation and makes an intramolecular hydrogen bond. The strength of this hydrogen bond is overestimated by gANI as the NNP was rained on gasphase DFT energies.</td>
   <td>The gANI and MMFF94S conforamtion of 5xs2 differ in the orientation of the amide group. Both conformations are difficult to differntiate based on the elecron density. The conformation predicted by gANI however places the carbonyl oxigen next to the electropositive hydrogen no the pyrole N.</td>
  </tr>
