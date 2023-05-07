@@ -33,6 +33,13 @@ Relevant references are:
       ```
       conda activate g_ANI
       ```
+   - Install the auxilliare packages indevelopment mode as long as you are developing.:
+      ```
+      cd ../cdd_chem/
+      pip install -e .
+      cd ../t_opt/
+      pip install -e .
+      ```
    - To run the strain energy calculation you need the following tools from [OpenEye](https://www.eyesopen.com/).<br/>
      Note: you can run minimizations using sdfMOptimizer.py and singlepoint calculations with sdfNNP.py without openeye tools
            or licenses as the cdd_chem package will use RDKit if OEChem is not available.
@@ -109,8 +116,41 @@ The follwoing boxplot shows the distribution of the strain energy of these 750 c
 
 As can be expected the more relaxation is allowed the lower the strain energy is. In looking at many strain energy calculation we have determined that a relaxaion of 0.4 A results in a conformation that is very close to the input conformation but in which many artifacts causeing strain have been released. We therefore recomend looking at hte neergy of the confrmations with less than 0.4 A deviation form the input first. If the lowest energy of these conformation is below 2-3 kcal/mol the conformation is considered to have a low strain energy. For conformations with strain energys at 0.4A > 3 kcal/mol we recomend looking at the relaxation pattern and  trying to undestand which parts of the molecule are contributing most to the strain. Structural changes to the molecule should be considered to reduce the streain. The statistics above suggest that compounds with strains (at 0.4A) > 2-3kcal/mol have a small likeihood of being consistent with chrystallographically observed conformations.
 
+### comparison to ForceField based implementation
+We ran the same strain anergy computation using the MMFF94S forcefield using the sheffiled solvation model instead of the NNP on the 750 confomation form the PDB described above. The follwoing graph comparese the results:
 
+![gANI vs MMFF94S](documentation/GANNI_MMFF.jpg)
 
+As expected both method classify most confromations from the pdb as low strained. However, for some conformations differences highlight limitations of either method.
+<table>
+ <tr><th colspan='4'>Conformations strained according to MMFF94 but not strained accoring to gANI</th></tr>
+ <tr>
+  <td><img src='documentation/MMFF_strained.jpg></td>
+  <td><img src='documentation/5jn8.jpg></td>
+  <td><img src='documentation/4dvi.jpg></td>
+  <td><img src='documentation/5tz3.jpg></td>
+ </tr>
+<tr>
+ <td>[Ledgend](documentation/confColors.jpg)</tr>
+  <td>Inthe crystallographic pose of 5jn8 the carbonly oxygen is pointing towards the thiadiazole sulfur. This conformation is stabilized by the favorable O-S interaction. This is reproduced by gANI but not by MMFF94S. It is well known that O-S interactions are frequently seen as repulsive by force fields.</td>
+  <td>In casee of the 4dvi ligand both the gANI and the MMFF94 conformations differ from the crystallographic conformation on the central phenyl ring. The energy difference for the gANI conformation is computed to be just 0.1 kca/mol while the MMFF94 Force Feld predicts a difference of 6 kcal/mol.</td>
+  <td>For 5tz3 both the gANI and the crystalographic conformations are mostly planar with a hydrogen bond between the amide NH and the 5 memberd ring nitrogen. In the MMFF94S conformation this interaction is not made and the conformation is twisted out of plane. Oru assumption is that the hydrogen bonding conformation is to strained in the MMFF94S computation due to teh close distance required by the ridgide backbone of the compound.</td>
+ </tr>
+ 
+ 
+ <tr><td colspan=4'4'/></tr>
+ <tr><th colspan='4'>Conformations strained according to gANI but not strained accoring to MMFF94</th></tr>
+ <tr>
+  <td><img src='documentation/GANNI_strained.jpg></td>
+  <td><img src='documentation/2ori.jpg></td>
+  <td><img src='documentation/5lrd.jpg.</td>
+  <td><img src='documentation/5xs2.jpg></td>
+ </tr>
+ <td>[Ledgend](documentation/confColors.jpg)</tr>
+  <td colspan='2>Fro 2ori and 5lrd the gANI minimum conformation deviates significanly from the crysallographic conformation and makes an intramolecular hydrogen bond. The strength of this hydrogen bond is overestimated by gANI as the NNP was rained on gasphase DFT energies.</td>
+  <td>The gANI and MMFF94S conforamtion of 5xs2 differ in the orientation of the amide group. Both conformations are difficult to differntiate based on the elecron density. The conformation predicted by gANI however places the carbonyl oxigen next to the electropositive hydrogen no the pyrole N.</td>
+ </tr>
+</table>
 
 ## Features
 
