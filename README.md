@@ -119,16 +119,16 @@ As can be expected the more relaxation is allowed the lower the strain energy is
 ### comparison to ForceField based implementation
 We ran the same strain anergy computation using the MMFF94S forcefield using the sheffiled solvation model instead of the NNP on the 750 confomation form the PDB described above. The follwoing graph comparese the results:
 
-[gANI vs MMFF94S](documentation/GANNI_MMFF.jpg)
+![gANI vs MMFF94S](documentation/GANNI_MMFF.jpg)
 
 As expected both method classify most confromations from the pdb as low strained. However, for some conformations differences highlight limitations of either method.
 <table>
  <tr><th colspan='4'>Conformations strained according to MMFF94 but not strained accoring to gANI</th></tr>
  <tr>
-  <td>[GANNI strained](documentation/MMFF_strained.jpg)</td>
-  <td>>[5jn8](documentation/5jn8.jpg)</td>
-  <td>>[4dvi](documentation/4dvi.jpg)</td>
-  <td>>[5tz3](documentation/5tz3.jpg)</td>
+  <td><img src='documentation/MMFF_strained.jpg></td>
+  <td><img src='documentation/5jn8.jpg></td>
+  <td><img src='documentation/4dvi.jpg></td>
+  <td><img src='documentation/5tz3.jpg></td>
  </tr>
 <tr>
  <td>[Ledgend](documentation/confColors.jpg)</tr>
@@ -141,10 +141,10 @@ As expected both method classify most confromations from the pdb as low strained
  <tr><td colspan=4'4'/></tr>
  <tr><th colspan='4'>Conformations strained according to gANI but not strained accoring to MMFF94</th></tr>
  <tr>
-  <td>[GANNI strained](documentation/GANNI_strained.jpg)</td>
-  <td>>[2ori](documentation/2ori.jpg)</td>
-  <td>>[5lrd](documentation/5lrd.jpg)</td>
-  <td>>[5xs2](documentation/5xs2.jpg)</td>
+  <td><img src='documentation/GANNI_strained.jpg></td>
+  <td><img src='documentation/2ori.jpg></td>
+  <td><img src='documentation/5lrd.jpg.</td>
+  <td><img src='documentation/5xs2.jpg></td>
  </tr>
  <td>[Ledgend](documentation/confColors.jpg)</tr>
   <td colspan='2>Fro 2ori and 5lrd the gANI minimum conformation deviates significanly from the crysallographic conformation and makes an intramolecular hydrogen bond. The strength of this hydrogen bond is overestimated by gANI as the NNP was rained on gasphase DFT energies.</td>
