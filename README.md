@@ -90,15 +90,24 @@ The following ligand conformation was retrieved from the PDB ([5BVF](https://www
        <tr><td align="center">Strain analysis animation</td>
            <tdalign="center">Strain analysis animation with overlay of input</td></tr>
        <tr><td colspan='2'>
-         Result of strain energy computaiton on ligend in 5BVF. As can be seen the largest train is on the phynly ring on the right. It clearly relaxes from the position in the input conformation to the conformation in the contraint minima (cnst 0.4). Note also that the global minimum exhebits an intramolecular hydrogen bond. The energy of the global minimum is probably not reflective of the energy in solution phase as the NNP was traiend on gas phaseDFT calculations. Thus the strain in this calculation might be overestimated.</br>
+         Result of strain energy computaiton on ligend in 5BVF. As can be seen the largest train is on the phynly ring on the right. It clearly relaxes from the position in the input conformation to the conformation in the contraint minima (cnst 0.4). Note that the global minimum exhebits an intramolecular hydrogen bond. The energy of the global minimum is probably not reflective of the energy in solution phase as the NNP was traiend on gas phaseDFT calculations. Thus the strain in this calculation might be overestimated.</br>
          RMSD to Input [A]. Relative Energy (dE) to Global Minimum [kcal/mol]</td></tr></table>
            
 ### Explaination
 The constraint minimization account for multiple non-phisical sources of strain:
 
 - Differnces between the method used to genrate the input confomation and the NNP used in evaluatingthe striain. Small changes int the bond length deemed to be optimal between two atoms would yield very hi energie differences. Allowing the slight relaxation will remove this artificat.
--
 - Molecular flexibility of the protein and ligand always allow for some movement.
+- Crytal structure refinement has an intrinsic uncertainty.
+
+### Statistics
+
+We have computed the strain energy with the this method for 750 neutral ligands from PDB database with good resolution.
+The follwoing boxplot shows the distribution of the strain energy of these 750 conformations for different values of maximum relaxation. E.g. the box at 0.4 A maxRMSD was coputed by applying the method described above. For each of the 750  input conformation. Only conformations within 0.4 A were retained and the lowest relative energy is reported.
+
+![BoxPlot](documentation/5bvf/BoxPlot.jpg)
+
+As can be expected the more relaxation is allowed the lower the strain energy is. In looking at many strain energy calculation we have determined that a relaxaion of 0.4 A results in a conformation that is very close to the input conformation but in which many artifacts causeing strain have been released. We therefore recomend looking at hte neergy of the confrmations with less than 0.4 A deviation form the input first. If the lowest energy of these conformation is below 2-3 kcal/mol the conformation is considered to have a low strain energy. For conformations with strain energys at 0.4A > 3 kcal/mol we recomend looking at the relaxation pattern and  trying to undestand which parts of the molecule are contributing most to the strain. Structural changes to the molecule should be considered to reduce the streain. The statistics above suggest that compounds with strains (at 0.4A) > 2-3kcal/mol have a small likeihood of being consistent with chrystallographically observed conformations.
 
 
 
