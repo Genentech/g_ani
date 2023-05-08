@@ -34,7 +34,7 @@ Relevant references are:
       ```
       conda activate g_ANI
       ```
-   - Install the auxilliary packages in development mode as long as you are developing:
+   - Install the auxiliary packages in development mode as long as you are developing:
       ```
       cd ../cdd_chem/
       pip install -e .
@@ -68,7 +68,7 @@ This implementation follows the definition by Boström et.al. (Conformational en
 - The conformation with the lowest energy is identified and defines the **"global minimum"** conformation. All energies reported are relative to this conformation.
 - The input conformation is minimized to yield the **"local minimum"**
 - The hydrogens are minimized on the input conformation to yield the **"Hydrogen optimized""** conformation (HOpt).
-- The hydrogen optimized conformation is optimized using 4 decreasing quadratic retaining potentials. This will yield coformations with increasing relaxation and decreasing relative energy. The relaxation will happen along the most constrained part of the molecule, thus highlighting areas of strain. These are the **"constrained minima"**
+- The hydrogen optimized conformation is optimized using 4 decreasing quadratic retaining potentials. This will yield conformations with increasing relaxation and decreasing relative energy. The relaxation will happen along the most constrained part of the molecule, thus highlighting areas of strain. These are the **"constrained minima"**
 - If the `-sampleOtherMin` option is given **"Other minima"** are returned. these minima are on a pareteo minimum curve that optimizes RMSD or relative energy. These allow the identification of minima that are similar to the input conformation and have low relative energy or low RMSD.
 
 By looking at the conformations from first to last the relaxation along the most strained features of the input conformations can be identified. Order is as follows:
@@ -80,7 +80,7 @@ By looking at the conformations from first to last the relaxation along the most
 5. Global minimum<br/>
    The global minimum will frequently be ill aligned to the input conformation as it will generally have a very different conformation.
 6. Other minima (as described above)<br/>
-   These minima should be evaluated to see if there are minor changes that preserve the overal structure but largely reduce the strain.
+   These minima should be evaluated to see if there are minor changes that preserve the overall structure but largely reduce the strain.
    
 The output file will contain the following fields:
 
@@ -101,7 +101,7 @@ The following ligand conformation was retrieved from the PDB ([5BVF](https://www
        <tr><td align="center">Strain analysis animation</td>
            <tdalign="center">Strain analysis animation with overlay of input</td></tr>
        <tr><td colspan='2'>
-         Result of strain energy computation on the ligand in 5BVF. As can be seen the largest train is on the phenly ring on the right. It clearly relaxes from the position in the input conformation to the conformation in the constraint minima (cnst 0.4). Note that the global minimum exhibits an intramolecular hydrogen bond. The energy of the global minimum is probably not reflective of the energy in solution phase as the NNP was trained on gas phase DFT calculations. Thus the strain in this calculation might be overestimated.</br>
+         Result of strain energy computation on the ligand in 5BVF. As can be seen the largest train is on the phenyl ring on the right. It clearly relaxes from the position in the input conformation to the conformation in the constraint minima (cnst 0.4). Note that the global minimum exhibits an intramolecular hydrogen bond. The energy of the global minimum is probably not reflective of the energy in solution phase as the NNP was trained on gas phase DFT calculations. Thus the strain in this calculation might be overestimated.</br>
          RMSD to Input [A]. Relative Energy (dE) to Global Minimum [kcal/mol]</td></tr></table>
            
 ### Explanation
@@ -118,10 +118,10 @@ The following boxplot shows the distribution of the strain energy of these 750 c
 
 ![BoxPlot](documentation/5bvf/BoxPlot.jpg)
 
-As can be expected the more relaxation is allowed the lower the strain energy is. In looking at many strain energy calculation we have determined that a relaxation of 0.4 A results in a conformation that is very close to the input conformation but in which many artifacts causing strain have been released. We therefore recommend looking at the energy of the conformations with less than 0.4 A deviation from the input first. If the lowest energy of these conformation is below 2-3 kcal/mol the conformation is considered to have a low strain energy. For conformations with strain energies at 0.4A > 3 kcal/mol we recommend looking at the relaxation pattern and  trying to understand which parts of the molecule are contributing most to the strain. Structural changes to the molecule should be considered to reduce the strain. The statistics above suggest that compounds with strains (at 0.4A) > 2-3kcal/mol have a small likelihood of being consistent with chrystallographically observed conformations.
+As can be expected the more relaxation is allowed the lower the strain energy is. In looking at many strain energy calculation we have determined that a relaxation of 0.4 A results in a conformation that is very close to the input conformation but in which many artifacts causing strain have been released. We therefore recommend looking at the energy of the conformations with less than 0.4 A deviation from the input first. If the lowest energy of these conformation is below 2-3 kcal/mol the conformation is considered to have a low strain energy. For conformations with strain energies at 0.4A > 3 kcal/mol we recommend looking at the relaxation pattern and  trying to understand which parts of the molecule are contributing most to the strain. Structural changes to the molecule should be considered to reduce the strain. The statistics above suggest that compounds with strains (at 0.4A) > 2-3kcal/mol have a small likelihood of being consistent with crystallographically observed conformations.
 
-### comparison to ForceField based implementation
-We ran the same strain energy computation using the MMFF94S forcefield using the sheffieled solvation model instead of the NNP on the 750 conformation form the PDB described above. The following graph compares the results:
+### Comparison to force field based implementation
+We ran the same strain energy computation using the MMFF94S force field using the sheffield solvation model instead of the NNP on the 750 conformation form the PDB described above. The following graph compares the results:
 
 ![gANI vs MMFF94S](documentation/GANNI_MMFF.jpg)
 
@@ -138,7 +138,7 @@ As expected both method classify most conformations from the pdb as low strained
  <td><img src='documentation/confColors.jpg'/></td>
   <td>In the crystallographic pose of 5jn8 the carbonyl oxygen is pointing towards the thiadiazole sulfur. This conformation is stabilized by the favorable O-S interaction. This is reproduced by gANI but not by MMFF94S. It is well known that O-S interactions are frequently seen as repulsive by force fields.</td>
   
-  <td>In case of the 4dvi ligand both the gANI and the MMFF94 conformations differ from the crystallographic conformation on the central phenyl ring. The energy difference for the gANI conformation is computed to be just 0.1 kca/mol while the MMFF94 Force Feld predicts a difference of 6 kcal/mol.</td>
+  <td>In case of the 4dvi ligand both the gANI and the MMFF94 conformations differ from the crystallographic conformation on the central phenyl ring. The energy difference for the gANI conformation is computed to be just 0.1 kcal/mol while the MMFF94 Force Feld predicts a difference of 6 kcal/mol.</td>
   
   <td>For 5tz3 both the gANI and the crystallographic conformations are mostly planar with a hydrogen bond between the amide NH and the 5 membered ring nitrogen. In the MMFF94S conformation this interaction is not made and the conformation is twisted out of plane. Our assumption is that the hydrogen bonding conformation is to strained in the MMFF94S computation due to the close distance required by the rigid backbone of the compound.</td>
  </tr>
