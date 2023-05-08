@@ -167,10 +167,8 @@ As expected both method classify most conformations from the pdb as low strained
 ## Credits
 gANI was created with the help and input of many colleagures at Genentech and outside of Genentech.
 I would like to acknoledge their contribution and thank them for all the inout and help!
+<table><tr><td>
 Man-Ling Lee
-Adrian Roitberg
-Justin Smith
-David Mobley
 Ben Sellers
 Petr Votava
 Jeff Blaney
@@ -181,10 +179,16 @@ Erik Evensen
 Erin Chistensen
 Kai Liu
 Laura Kahn
-Lee-Ping Wang
-Olexandr Isayev
-Peter Eastman
 Richard Bone
 Robert Woodruff
 Ryan Weekly
 Slaton Lipscomb
+ </td>
+ <td>
+  Adrian Roitberg
+  Justin Smith
+  David Mobley
+  Lee-Ping Wang
+  Olexandr Isayev
+  Peter Eastman
+ </td></tr></table>
