@@ -150,7 +150,7 @@ As expected both method classify most conformations from the pdb as low strained
   <td><img src='documentation/GANNI_strained.jpg'/></td>
   <td><img src='documentation/2orj.jpg'/></td>
   <td><img src='documentation/5lrd.jpg'/></td>
-  <td><pre>                               </pre>
+  <td><pre>                                        </pre>
      <img src='documentation/5xs2.jpg'/></td>
  </tr>
  <td><pre>            </pre>
