@@ -135,25 +135,25 @@ As expected both method classify most conformations from the pdb as low strained
   <td><img src='documentation/5tz3.jpg'/></td>
  </tr>
  <tr>
- <td><img src='documentation/confColors.jpg'/></td>
+ <td><pre>              </pre>
+     <img src='documentation/confColors.jpg'/></td>
   <td>In the crystallographic pose of 5jn8 the carbonyl oxygen is pointing towards the thiadiazole sulfur. This conformation is stabilized by the favorable O-S interaction. This is reproduced by g_ANI but not by MMFF94S. It is well known that O-S interactions are frequently seen as repulsive by force fields.</td>
   
   <td>In case of the 4dvi ligand both the g_ANI and the MMFF94 conformations differ from the crystallographic conformation on the central phenyl ring. The energy difference for the g_ANI conformation is computed to be just 0.1 kcal/mol while the MMFF94 Force Feld predicts a difference of 6 kcal/mol.</td>
   
   <td>For 5tz3 both the g_ANI and the crystallographic conformations are mostly planar with a hydrogen bond between the amide NH and the 5 membered ring nitrogen. In the MMFF94S conformation this interaction is not made and the conformation is twisted out of plane. Our assumption is that the hydrogen bonding conformation is to strained in the MMFF94S computation due to the close distance required by the rigid backbone of the compound.</td>
- </tr>
+ </tr></table>
  
- 
- <tr><td colspan=4'4'/><br/><br/></tr>
+<table>
  <tr><th colspan='4'>Conformations strained according to g_ANI but not strained according to MMFF94</th></tr>
  <tr>
   <td><img src='documentation/GANNI_strained.jpg'/></td>
   <td><img src='documentation/2orj.jpg'/></td>
   <td><img src='documentation/5lrd.jpg'/></td>
-  <td><pre>                                        </pre>
+  <td><pre>                          </pre>
      <img src='documentation/5xs2.jpg'/></td>
  </tr>
- <td><pre>            </pre>
+ <td><pre>              </pre>
     <img src='documentation/confColors.jpg'/></td>
   
  <td colspan='2'>For 2ori and 5lrd the g_ANI minimum conformation deviates significantly from the crystallographic conformation and makes an intramolecular hydrogen bond. The strength of this hydrogen bond is overestimated by g_ANI as the NNP was trained on gas phase DFT energies.</td>
