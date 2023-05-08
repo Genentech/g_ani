@@ -123,11 +123,11 @@ As can be expected the more relaxation is allowed the lower the strain energy is
 ### Comparison to force field based implementation
 We ran the same strain energy computation using the MMFF94S force field using the sheffield solvation model instead of the NNP on the 750 conformation form the PDB described above. The following graph compares the results:
 
-![gANI vs MMFF94S](documentation/GANNI_MMFF.jpg)
+![g_ANI vs MMFF94S](documentation/GANNI_MMFF.jpg)
 
 As expected both method classify most conformations from the pdb as low strained. However, for some conformations differences highlight limitations of either method.
 <table>
- <tr><th colspan='4'>Conformations strained according to MMFF94 but not strained according to gANI</th></tr>
+ <tr><th colspan='4'>Conformations strained according to MMFF94 but not strained according to g_ANI</th></tr>
  <tr>
   <td><img src='documentation/MMFF_strained.jpg'/></td>
   <td><img src='documentation/5jn8.jpg'/></td>
@@ -136,16 +136,16 @@ As expected both method classify most conformations from the pdb as low strained
  </tr>
  <tr>
  <td><img src='documentation/confColors.jpg'/></td>
-  <td>In the crystallographic pose of 5jn8 the carbonyl oxygen is pointing towards the thiadiazole sulfur. This conformation is stabilized by the favorable O-S interaction. This is reproduced by gANI but not by MMFF94S. It is well known that O-S interactions are frequently seen as repulsive by force fields.</td>
+  <td>In the crystallographic pose of 5jn8 the carbonyl oxygen is pointing towards the thiadiazole sulfur. This conformation is stabilized by the favorable O-S interaction. This is reproduced by g_ANI but not by MMFF94S. It is well known that O-S interactions are frequently seen as repulsive by force fields.</td>
   
-  <td>In case of the 4dvi ligand both the gANI and the MMFF94 conformations differ from the crystallographic conformation on the central phenyl ring. The energy difference for the gANI conformation is computed to be just 0.1 kcal/mol while the MMFF94 Force Feld predicts a difference of 6 kcal/mol.</td>
+  <td>In case of the 4dvi ligand both the g_ANI and the MMFF94 conformations differ from the crystallographic conformation on the central phenyl ring. The energy difference for the g_ANI conformation is computed to be just 0.1 kcal/mol while the MMFF94 Force Feld predicts a difference of 6 kcal/mol.</td>
   
-  <td>For 5tz3 both the gANI and the crystallographic conformations are mostly planar with a hydrogen bond between the amide NH and the 5 membered ring nitrogen. In the MMFF94S conformation this interaction is not made and the conformation is twisted out of plane. Our assumption is that the hydrogen bonding conformation is to strained in the MMFF94S computation due to the close distance required by the rigid backbone of the compound.</td>
+  <td>For 5tz3 both the g_ANI and the crystallographic conformations are mostly planar with a hydrogen bond between the amide NH and the 5 membered ring nitrogen. In the MMFF94S conformation this interaction is not made and the conformation is twisted out of plane. Our assumption is that the hydrogen bonding conformation is to strained in the MMFF94S computation due to the close distance required by the rigid backbone of the compound.</td>
  </tr>
  
  
  <tr><td colspan=4'4'/><br/><br/></tr>
- <tr><th colspan='4'>Conformations strained according to gANI but not strained according to MMFF94</th></tr>
+ <tr><th colspan='4'>Conformations strained according to g_ANI but not strained according to MMFF94</th></tr>
  <tr>
   <td><img src='documentation/GANNI_strained.jpg'/></td>
   <td><img src='documentation/2orj.jpg'/></td>
@@ -154,20 +154,20 @@ As expected both method classify most conformations from the pdb as low strained
  </tr>
  <td><img src='documentation/confColors.jpg'/><pre>                        </pre></td>
   
- <td colspan='2'>For 2ori and 5lrd the gANI minimum conformation deviates significantly from the crystallographic conformation and makes an intramolecular hydrogen bond. The strength of this hydrogen bond is overestimated by gANI as the NNP was trained on gas phase DFT energies.</td>
+ <td colspan='2'>For 2ori and 5lrd the g_ANI minimum conformation deviates significantly from the crystallographic conformation and makes an intramolecular hydrogen bond. The strength of this hydrogen bond is overestimated by g_ANI as the NNP was trained on gas phase DFT energies.</td>
  
- <td>The gANI and MMFF94S conformation of 5xs2 differ in the orientation of the amide group. Both conformations are difficult to differentiate based on the electron density. The conformation predicted by gANI however places the carbonyl oxygen next to the electropositive hydrogen no the pyrrole N. QM calculations at the DFT level show a ~ 8kcal/mol preference for the carbonyl oxygen pointing towards the NH.</td>
+ <td>The g_ANI and MMFF94S conformation of 5xs2 differ in the orientation of the amide group. Both conformations are difficult to differentiate based on the electron density. The conformation predicted by g_ANI however places the carbonyl oxygen next to the electropositive hydrogen no the pyrrole N. QM calculations at the DFT level show a ~ 8kcal/mol preference for the carbonyl oxygen pointing towards the NH.</td>
  </tr>
 </table>
 
-## NNP Implementations in g_ANI
+## NNP implementations in g_ANI
 
 ### ANI type NNP
-The [ml_am/nn](ml_qm/nn) pacakge includes an intependent implementation of the ANI network. Using the [TorchAnI](https://github.com/aiqm/torchani) implementation might be a better choice development on this implementation has slowed some what. The g_ANI implementation has been fully tested and is currently in production use for computing strain energy at GNE. weights trained on the ANI2 dtaset are provided in this package (cf. below). The configuration of the NNP is divcen by a [json](data/nnp/ani22/bb/bb.3.json) configuration file. The production implementation ueses an ensamble of 8 netwroks with four leayers each for each atom type.
+The [ml_am/nn](ml_qm/nn) package includes an independent implementation of the ANI network. Using the [TorchAnI](https://github.com/aiqm/torchani) implementation might be a better choice development on this implementation has slowed some what. The g_ANI implementation has been fully tested and is currently in production use for computing strain energy at GNE. weights trained on the ANI2 data set are provided in this package (cf. below). The configuration of the NNP is driven by a [json](data/nnp/ani22/bb/bb.3.json) configuration file. The production implementation uses an ensemble of 8 networks with four layers each for each atom type.
 
 ### DistNet NNP
 
-This implementation uses a novel architecture in whish the Beehler PArinello descriptors are learned. Atom types are described by one hot encoding their atomic number and group in the periodic system:
+This implementation uses a novel architecture in which the Behler Parrinello descriptors are learned. Atom types are described by one hot encoding their atomic number and group in the periodic system:
 |Atom|Period 1| P2 | P3 | Group 1 | G4 | G5 | G6 | G7 |
 |----|--------|----|----|---------|----|----|----|----|
 | H  |   1    | 0  |  0 |    1    |  0 | 0  | 0  | 0  |
@@ -185,27 +185,28 @@ and the [EnergyNet](https://github.com/Genentech/g_ani/blob/26b38ab3d68e4ff4e837
 
 ![DistNet](documentation/DistNet.jpg)
 
-The AngularNet uses a concatenation of the Atom types of three atoms. The distances between the first (center) atom and two neighbors as wall as the angle is included in each iput row. The input to the radial net is similar but includes just two atoms and one distance. A cutoff function is used similar to the one used on the output of the RadialNet and AngleNet similar to the one used in the ANI NNP. The EnergyNet is similar in function and strcuture as one Atomic Netweork of the ANI NNP. A yaml file for a configuration of Distnet is given [here](data/nnp/dist3/d3.yml).
+The AngularNet uses a concatenation of the Atom types of three atoms. The distances between the first (center) atom and two neighbors as wall as the angle is included in each input row. The input to the radial net is similar but includes just two atoms and one distance. A cutoff function is used similar to the one used on the output of the RadialNet and AngleNet similar to the one used in the ANI NNP. The EnergyNet is similar in function and structure as one Atomic Netweork of the ANI NNP. A yaml file for a configuration of Distnet is given [here](data/nnp/dist3/d3.yml).
 
 This Network topology has advantages and disadvantages:
+
 Advantages:
-- Uses a single network for all atom types. Thus the network size does nto necessarily grom with an ingrease in supported atoms.
-- Fewer prameter due the use of one single EnergyNet is needed.
-- In our first preeliminary resutls a slight performance boost is observed. Note that this need further validation.
+- Uses a single network for all atom types. Thus the network size does not necessarily grow with the third power of supported atom types.
+- Fewer parameter due the use of one single EnergyNet.
+- In our first preliminary resutls a slight performance boost is observed. Note that this need further validation.
 
 Disadvantages:
-- the current implementation is 6-7 times slower than the gANI implementation. Given the more complex functional form as compared to using Beehler Parinaello type description possible improvements might be limited.
-- this is not as well tested as the gANI NNP.
+- The current implementation is 6-7 times slower than the g_ANI implementation. Given the more complex functional form as compared to using Behler Parrinello type description possible improvements might be limited.
+- This is not as well tested as the gA_NI NNP.
 
 ### Weights for the NNP described
 
-Weights for the gANI network can be found in the [data/nnp/ani22/bb](data/nnp/ani22/bb/) directory. Eight Models were obtimized using BOHB and can be used as an ensamble by specifying the [bb3.json](data/nnp/ani22/bb/bb.3.json) configuration file. Each model was trained on a different randomly selected 80% of the ANI2 dataset. Note that models differ in number of nodes and other parameters. This was done to increase the diversity of the network in the hope of improving the accuracy of the error estimate.
+Weights for the g_ANI network can be found in the [data/nnp/ani22/bb](data/nnp/ani22/bb/) directory. Eight Models were optimized using BOHB and can be used as an ensemble by specifying the [bb3.json](data/nnp/ani22/bb/bb.3.json) configuration file. Each model was trained on a different randomly selected 80% of the ANI2 dataset. Note that models differ in number of nodes and other parameters. This was done to increase the diversity of the network in the hope of improving the accuracy of the error estimate.
 
-Weights for one DistNet NNP are avaialble in [data/nnp/dist3/](data/nnp/dist3/). It can be used with the command lien tools by specifyin the [data/nnp/dist3/d3.yml](data/nnp/dist3/d3.yml) as configuration option. Note that becase this is not an ensamble model no uncertainties can be computed.
+Weights for one DistNet NNP are available in [data/nnp/dist3/](data/nnp/dist3/). It can be used with the command line tools by specifyin the [data/nnp/dist3/d3.yml](data/nnp/dist3/d3.yml) as configuration option. Note that because this is not an ensemble model no uncertainties can be computed.
 
 
 ## Credits
-gANI was created with the help and input of many colleagures at Genentech and outside of Genentech.
+g_ANI was created with the help and input of many colleagures at Genentech and outside of Genentech.
 I would like to acknowledge their contribution and thank them for all the inout and help!
 |                        |                       |
 |------------------------|-----------------------|
