@@ -160,9 +160,49 @@ As expected both method classify most conformations from the pdb as low strained
  </tr>
 </table>
 
-## Features
+## NNP Implementations in g_ANI
 
--  Contains multiple model architectures
+### ANI type NNP
+The [ml_am/nn](ml_qm/nn) pacakge includes an intependent implementation of the ANI network. Using the [TorchAnI](https://github.com/aiqm/torchani) implementation might be a better choice development on this implementation has slowed some what. The g_ANI implementation has been fully tested and is currently in production use for computing strain energy at GNE. weights trained on the ANI2 dtaset are provided in this package (cf. below). The configuration of the NNP is divcen by a [json](data/nnp/ani22/bb/bb.3.json) configuration file. The production implementation ueses an ensamble of 8 netwroks with four leayers each for each atom type.
+
+### DistNet NNP
+
+This implementation uses a novel architecture in whish the Beehler PArinello descriptors are learned. Atom types are described by one hot encoding their atomic number and group in the periodic system:
+|Atom|Period 1| P2 | P3 | Group 1 | G4 | G5 | G6 | G7 |
+|----|--------|----|----|---------|----|----|----|----|
+| H  |   1    | 0  |  0 |    1    |  0 | 0  | 0  | 0  |
+| C  |   0    | 1  |  0 |    0    |  1 | 0  | 0  | 0  |
+| N  |   0    | 1  |  0 |    0    |  0 | 1  | 0  | 0  |
+| O  |   0    | 1  |  0 |    0    |  0 | 0  | 1  | 0  |
+| F  |   0    | 1  |  0 |    0    |  0 | 0  | 0  | 1  |
+| S  |   0    | 0  |  1 |    0    |  0 | 0  | 1  | 0  |
+| Cl |   0    | 0  |  1 |    0    |  0 | 0  | 0  | 1  |
+
+The NNP contains three separate networks, 
+the [RadialNet](https://github.com/Genentech/g_ani/blob/26b38ab3d68e4ff4e837927646f4cde894582a3b/ml_qm/distNet/dist_net.py#L260), 
+the [AngularNet](https://github.com/Genentech/g_ani/blob/26b38ab3d68e4ff4e837927646f4cde894582a3b/ml_qm/distNet/dist_net.py#L462) 
+and the [EnergyNet](https://github.com/Genentech/g_ani/blob/26b38ab3d68e4ff4e837927646f4cde894582a3b/ml_qm/distNet/dist_net.py#L59).
+
+![DistNet](documentation/DistNet.jpg)
+
+The AngularNet uses a concatenation of the Atom types of three atoms. The distances between the first (center) atom and two neighbors as wall as the angle is included in each iput row. The input to the radial net is similar but includes just two atoms and one distance. A cutoff function is used similar to the one used on the output of the RadialNet and AngleNet similar to the one used in the ANI NNP. The EnergyNet is similar in function and strcuture as one Atomic Netweork of the ANI NNP. A yaml file for a configuration of Distnet is given [here](data/nnp/dist3/d3.yml).
+
+This Network topology has advantages and disadvantages:
+Advantages:
+- Uses a single network for all atom types. Thus the network size does nto necessarily grom with an ingrease in supported atoms.
+- Fewer prameter due the use of one single EnergyNet is needed.
+- In our first preeliminary resutls a slight performance boost is observed. Note that this need further validation.
+
+Disadvantages:
+- the current implementation is 6-7 times slower than the gANI implementation. Given the more complex functional form as compared to using Beehler Parinaello type description possible improvements might be limited.
+- this is not as well tested as the gANI NNP.
+
+### Weights for the NNP described
+
+Weights for the gANI network can be found in the [data/nnp/ani22/bb](data/nnp/ani22/bb/) directory. Eight Models were obtimized using BOHB and can be used as an ensamble by specifying the [bb3.json](data/nnp/ani22/bb/bb.3.json) configuration file. Each model was trained on a different randomly selected 80% of the ANI2 dataset. Note that models differ in number of nodes and other parameters. This was done to increase the diversity of the network in the hope of improving the accuracy of the error estimate.
+
+Weights for one DistNet NNP are avaialble in [data/nnp/dist3/](data/nnp/dist3/). It can be used with the command lien tools by specifyin the [data/nnp/dist3/d3.yml](data/nnp/dist3/d3.yml) as configuration option. Note that becase this is not an ensamble model no uncertainties can be computed.
+
 
 ## Credits
 gANI was created with the help and input of many colleagures at Genentech and outside of Genentech.
