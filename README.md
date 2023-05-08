@@ -163,7 +163,7 @@ As expected both method classify most conformations from the pdb as low strained
 ## NNP implementations in g_ANI
 
 ### ANI type NNP
-The [ml_am/nn](ml_qm/nn) package includes an independent implementation of the ANI network. Using the [TorchAnI](https://github.com/aiqm/torchani) implementation might be a better choice development on this implementation has slowed some what. The g_ANI implementation has been fully tested and is currently in production use for computing strain energy at GNE. weights trained on the ANI2 data set are provided in this package (cf. below). The configuration of the NNP is driven by a [json](data/nnp/ani22/bb/bb.3.json) configuration file. The production implementation uses an ensemble of 8 networks with four layers each for each atom type.
+The [ml_am/nn](ml_qm/nn) package includes an independent implementation of the ANI network. Using the [TorchAnI](https://github.com/aiqm/torchani) implementation might be a better choice development on this implementation has slowed somewhat. The g_ANI implementation has been fully tested and is currently in production use for computing strain energy at GNE. Weights trained on the ANI2 data set are provided in this package (cf. below). The configuration of the NNP is driven by a [json](data/nnp/ani22/bb/bb.3.json) configuration file. The production implementation uses an ensemble of 8 networks with four layers each for each atom type.
 
 ### DistNet NNP
 
@@ -180,34 +180,34 @@ This implementation uses a novel architecture in which the Behler Parrinello des
 
 The NNP contains three separate networks, 
 the [RadialNet](https://github.com/Genentech/g_ani/blob/26b38ab3d68e4ff4e837927646f4cde894582a3b/ml_qm/distNet/dist_net.py#L260), 
-the [AngularNet](https://github.com/Genentech/g_ani/blob/26b38ab3d68e4ff4e837927646f4cde894582a3b/ml_qm/distNet/dist_net.py#L462) 
+the [AngleNet](https://github.com/Genentech/g_ani/blob/26b38ab3d68e4ff4e837927646f4cde894582a3b/ml_qm/distNet/dist_net.py#L462) 
 and the [EnergyNet](https://github.com/Genentech/g_ani/blob/26b38ab3d68e4ff4e837927646f4cde894582a3b/ml_qm/distNet/dist_net.py#L59).
 
 ![DistNet](documentation/DistNet.jpg)
 
-The AngularNet uses a concatenation of the Atom types of three atoms. The distances between the first (center) atom and two neighbors as wall as the angle is included in each input row. The input to the radial net is similar but includes just two atoms and one distance. A cutoff function is used similar to the one used on the output of the RadialNet and AngleNet similar to the one used in the ANI NNP. The EnergyNet is similar in function and structure as one Atomic Netweork of the ANI NNP. A yaml file for a configuration of Distnet is given [here](data/nnp/dist3/d3.yml).
+The AngleNet uses a concatenation of the Atom types of three atoms. The distances between the first (center) atom and two neighbors as well as the angle is included in each input row. The input to the radial net is similar but includes just two atoms and one distance. A cutoff function is used similar to the one used on the output of the RadialNet and AngleNet similar to the one used in the ANI NNP. The EnergyNet is similar in function and structure as one Atomic Network of the ANI NNP. A yaml file for a configuration of DistNet is given [here](data/nnp/dist3/d3.yml).
 
 This Network topology has advantages and disadvantages:
 
 Advantages:
 - Uses a single network for all atom types. Thus the network size does not necessarily grow with the third power of supported atom types.
 - Fewer parameter due the use of one single EnergyNet.
-- In our first preliminary resutls a slight performance boost is observed. Note that this need further validation.
+- In our first preliminary results a slight performance boost is observed. Note that this need further validation.
 
 Disadvantages:
 - The current implementation is 6-7 times slower than the g_ANI implementation. Given the more complex functional form as compared to using Behler Parrinello type description possible improvements might be limited.
-- This is not as well tested as the gA_NI NNP.
+- This is not as well tested as the g_ANI NNP.
 
 ### Weights for the NNP described
 
 Weights for the g_ANI network can be found in the [data/nnp/ani22/bb](data/nnp/ani22/bb/) directory. Eight Models were optimized using BOHB and can be used as an ensemble by specifying the [bb3.json](data/nnp/ani22/bb/bb.3.json) configuration file. Each model was trained on a different randomly selected 80% of the ANI2 dataset. Note that models differ in number of nodes and other parameters. This was done to increase the diversity of the network in the hope of improving the accuracy of the error estimate.
 
-Weights for one DistNet NNP are available in [data/nnp/dist3/](data/nnp/dist3/). It can be used with the command line tools by specifyin the [data/nnp/dist3/d3.yml](data/nnp/dist3/d3.yml) as configuration option. Note that because this is not an ensemble model no uncertainties can be computed.
+Weights for one DistNet NNP are available in [data/nnp/dist3/](data/nnp/dist3/). It can be used with the command line tools by specifying the [data/nnp/dist3/d3.yml](data/nnp/dist3/d3.yml) as configuration option. Note that because this is not an ensemble model no uncertainties can be computed.
 
 
 ## Credits
-g_ANI was created with the help and input of many colleagures at Genentech and outside of Genentech.
-I would like to acknowledge their contribution and thank them for all the inout and help!
+g_ANI was created with the help and input of many colleagues at Genentech and outside of Genentech.
+I would like to acknowledge their contribution and thank them for all the input and help!
 |                        |                       |
 |------------------------|-----------------------|
 | Man-Ling Lee           |   Adrian Roitberg     |
