@@ -133,7 +133,9 @@ As expected both method classify most confromations from the pdb as low strained
  <tr>
  <td><img src='documentation/confColors.jpg'/></td>
   <td>Inthe crystallographic pose of 5jn8 the carbonly oxygen is pointing towards the thiadiazole sulfur. This conformation is stabilized by the favorable O-S interaction. This is reproduced by gANI but not by MMFF94S. It is well known that O-S interactions are frequently seen as repulsive by force fields.</td>
+  
   <td>In casee of the 4dvi ligand both the gANI and the MMFF94 conformations differ from the crystallographic conformation on the central phenyl ring. The energy difference for the gANI conformation is computed to be just 0.1 kca/mol while the MMFF94 Force Feld predicts a difference of 6 kcal/mol.</td>
+  
   <td>For 5tz3 both the gANI and the crystalographic conformations are mostly planar with a hydrogen bond between the amide NH and the 5 memberd ring nitrogen. In the MMFF94S conformation this interaction is not made and the conformation is twisted out of plane. Oru assumption is that the hydrogen bonding conformation is to strained in the MMFF94S computation due to teh close distance required by the ridgide backbone of the compound.</td>
  </tr>
  
@@ -146,9 +148,11 @@ As expected both method classify most confromations from the pdb as low strained
   <td><img src='documentation/5lrd.jpg'/></td>
   <td><img src='documentation/5xs2.jpg'/></td>
  </tr>
- <td><img src='documentation/confColors.jpg'/>(Legend)</td>
-  <td colspan='2'>Fro 2ori and 5lrd the gANI minimum conformation deviates significanly from the crysallographic conformation and makes an intramolecular hydrogen bond. The strength of this hydrogen bond is overestimated by gANI as the NNP was rained on gasphase DFT energies.</td>
-  <td>The gANI and MMFF94S conforamtion of 5xs2 differ in the orientation of the amide group. Both conformations are difficult to differntiate based on the elecron density. The conformation predicted by gANI however places the carbonyl oxigen next to the electropositive hydrogen no the pyrole N.</td>
+ <td><img src='documentation/confColors.jpg'/><pre>                        </pre></td>
+  
+ <td colspan='2'>Fro 2ori and 5lrd the gANI minimum conformation deviates significanly from the crysallographic conformation and makes an intramolecular hydrogen bond. The strength of this hydrogen bond is overestimated by gANI as the NNP was rained on gasphase DFT energies.</td>
+ 
+ <td>The gANI and MMFF94S conforamtion of 5xs2 differ in the orientation of the amide group. Both conformations are difficult to differntiate based on the elecron density. The conformation predicted by gANI however places the carbonyl oxigen next to the electropositive hydrogen no the pyrole N. QM calculations at the DFT level show a ~ 8kcal/mol preference for the carbonyl oxigen pointing towards the NH.</td>
  </tr>
 </table>
 
