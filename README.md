@@ -148,15 +148,16 @@ As expected both method classify most conformations from the pdb as low strained
  <tr><th colspan='4'>Conformations strained according to g_ANI but not strained according to MMFF94</th></tr>
  <tr>
   <td><img src='documentation/GANNI_strained.jpg'/></td>
-  <td><img src='documentation/2orj.jpg'/></td>
-  <td><img src='documentation/5lrd.jpg'/></td>
+  <td><img src='documentation/2orj.jpg'/><pre>    </pre></td>
+  <td><img src='documentation/5lrd.jpg'/><pre>    </pre></td>
   <td><pre>                          </pre>
      <img src='documentation/5xs2.jpg'/></td>
  </tr>
  <td><pre>              </pre>
     <img src='documentation/confColors.jpg'/></td>
   
- <td colspan='2'>For 2ori and 5lrd the g_ANI minimum conformation deviates significantly from the crystallographic conformation and makes an intramolecular hydrogen bond. The strength of this hydrogen bond is overestimated by g_ANI as the NNP was trained on gas phase DFT energies.</td>
+ <td colspan='2'>For 2ori and 5lrd the g_ANI minimum conformation deviates significantly from the crystallographic conformation and makes an intramolecular hydrogen bond. The strength of this hydrogen bond is overestimated by g_ANI as the NNP was trained on gas phase DFT energies.
+</td>
  
  <td>The g_ANI and MMFF94S conformation of 5xs2 differ in the orientation of the amide group. Both conformations are difficult to differentiate based on the electron density. The conformation predicted by g_ANI however places the carbonyl oxygen next to the electropositive hydrogen no the pyrrole N. QM calculations at the DFT level show a ~ 8kcal/mol preference for the carbonyl oxygen pointing towards the NH.</td>
  </tr>
