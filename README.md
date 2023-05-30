@@ -119,11 +119,11 @@ The following boxplot shows the distribution of the strain energy of these 750 c
 As can be expected the more relaxation is allowed the lower the strain energy. In looking at many strain energy calculations we have determined that a relaxation of 0.4 A results in a conformation that is very close to the input conformation but in which many artifacts causing strain have been relaxed. We therefore recommend looking at the energy of the conformations with less than 0.4 A deviation from the input first. If the lowest energy of these conformations is below 2-3 kcal/mol the conformation is considered to have a low strain energy. For conformations with strain energies at 0.4A > 3 kcal/mol we recommend looking at the relaxation pattern and trying to understand which parts of the molecule are contributing most to the strain. Structural changes to the molecule should be considered to reduce the strain. The statistics above suggest that compounds with strains (at 0.4A) > 2-3kcal/mol have a small likelihood of being consistent with crystallographically observed conformations.
 
 ### Comparison to force field based implementation
-We ran the same strain energy computation using the MMFF94S force field (as implemented in the [chemalot package](https://github.com/chemalot/chemalot) using the sheffield solvation model instead of the NNP on the 750 conformation form the PDB described above. The following graph compares the results:
+We ran the same strain energy computation using the MMFF94S force field (as implemented in the [chemalot package](https://github.com/chemalot/chemalot)) using the sheffield solvation model instead of the NNP on the 750 conformation form the PDB described above. The following graph compares the results:
 
 ![g_ANI vs MMFF94S](documentation/GANNI_MMFF.jpg)
 
-As expected both method classify most conformations from the pdb as low strained. However, for some conformations differences highlight limitations of either method.
+As expected both method classify most conformations from the pdb as low strained. However, for some conformations the methods differ and the differences highlight limitations of either method.
 <table>
  <tr><th colspan='4'>Conformations strained according to MMFF94 but not strained according to g_ANI</th></tr>
  <tr>
@@ -148,7 +148,7 @@ As expected both method classify most conformations from the pdb as low strained
   <td><img src='documentation/GANNI_strained.jpg'/></td>
   <td><img src='documentation/2orj.jpg'/><pre>    </pre></td>
   <td><img src='documentation/5lrd.jpg'/><pre>    </pre></td>
-  <td><pre>                          </pre>
+  <td><pre>                        </pre>
      <img src='documentation/5xs2.jpg'/></td>
  </tr>
  <td><pre>              </pre>
