@@ -154,21 +154,21 @@ As expected both method classify most conformations from the pdb as low strained
  <td><pre>              </pre>
     <img src='documentation/confColors.jpg'/></td>
   
- <td colspan='2'>For 2ori and 5lrd the g_ANI minimum conformation deviates significantly from the crystallographic conformation and makes an intramolecular hydrogen bond. The strength of this hydrogen bond is overestimated by g_ANI as the NNP was trained on gas phase DFT energies.
+ <td colspan='2'>For 2ori and 5lrd the g_ANI minimum conformation deviates significantly from the crystallographic conformation and makes a intramolecular hydrogen bonds. The strength of this hydrogen bonds is overestimated by g_ANI as the NNP was trained on gas phase DFT energies.
 </td>
  
- <td>The g_ANI and MMFF94S conformation of 5xs2 differ in the orientation of the amide group. Both conformations are difficult to differentiate based on the electron density. The conformation predicted by g_ANI however places the carbonyl oxygen next to the electropositive hydrogen no the pyrrole N. QM calculations at the DFT level show a ~ 8kcal/mol preference for the carbonyl oxygen pointing towards the NH.</td>
+ <td>The g_ANI and MMFF94S conformation of 5xs2 differ in the orientation of the amide group. Both conformations are difficult to differentiate based on the electron density. The conformation predicted by g_ANI however places the carbonyl oxygen next to the electro-positive hydrogen on the pyrrole N. QM calculations at the DFT level show a ~ 8kcal/mol preference for the carbonyl oxygen pointing towards the NH.</td>
  </tr>
 </table>
 
 ## NNP implementations in g_ANI
 
 ### ANI type NNP
-The [ml_am/nn](ml_qm/nn) package includes an independent implementation of the ANI network. Using the [TorchAnI](https://github.com/aiqm/torchani) implementation might be a better choice development on this implementation has slowed somewhat. The g_ANI implementation has been fully tested and is currently in production use for computing strain energy at GNE. Weights trained on the ANI2 data set are provided in this package (cf. below). The configuration of the NNP is driven by a [json](data/nnp/ani22/bb/bb.3.json) configuration file. The production implementation uses an ensemble of 8 networks with four layers each for each atom type.
+The [ml_am/nn](ml_qm/nn) package includes an independent implementation of the ANI network. Using the [TorchAnI](https://github.com/aiqm/torchani) implementation might be a better choice as development on this implementation has slowed somewhat. The g_ANI implementation has been fully tested and is currently in production use for computing strain energy at Genentech. Weights trained on the ANI2 data set are provided in this package (cf. below). The configuration of the NNP is driven by a [json](data/nnp/ani22/bb/bb.3.json) configuration file. The production implementation uses an ensemble of 8 networks with four layers for each atom type.
 
 ### DistNet NNP
 
-This implementation uses a novel architecture in which the Behler Parrinello descriptors are learned. Atom types are described by one hot encoding their atomic number and group in the periodic system:
+This implementation uses a novel architecture a radaial and an angular network replace the Behler Parrinello descriptors. Atom types are described by one hot encoding their atomic number and group in the periodic system:
 |Atom|Period 1| P2 | P3 | Group 1 | G4 | G5 | G6 | G7 |
 |----|--------|----|----|---------|----|----|----|----|
 | H  |   1    | 0  |  0 |    1    |  0 | 0  | 0  | 0  |
@@ -186,17 +186,17 @@ and the [EnergyNet](https://github.com/Genentech/g_ani/blob/26b38ab3d68e4ff4e837
 
 ![DistNet](documentation/DistNet.jpg)
 
-The AngleNet uses a concatenation of the Atom types of three atoms. The distances between the first (center) atom and two neighbors as well as the angle is included in each input row. The input to the radial net is similar but includes just two atoms and one distance. A cutoff function is used similar to the one used on the output of the RadialNet and AngleNet similar to the one used in the ANI NNP. The EnergyNet is similar in function and structure as one Atomic Network of the ANI NNP. A yaml file for a configuration of DistNet is given [here](data/nnp/dist3/d3.yml).
+The AngleNet uses a concatenation of the Atom types of three atoms. The distances between the first (center) atom and two neighbors as well as the angle is included in each input row. The input to the radial net is similar but includes just two atoms and one distance. A cutoff function is used similar to the one used in the ANI NNP. The EnergyNet is similar in function and structure as one Atomic Network of the ANI NNP. A yaml file for a configuration of DistNet is given [here](data/nnp/dist3/d3.yml).
 
 This Network topology has advantages and disadvantages:
 
 Advantages:
 - Uses a single network for all atom types. Thus the network size does not necessarily grow with the third power of supported atom types.
 - Fewer parameter due the use of one single EnergyNet.
-- In our first preliminary results a slight performance boost is observed. Note that this need further validation.
+- In our first preliminary results a slight performance boost is observed. Note that this needs further validation.
 
 Disadvantages:
-- The current implementation is 6-7 times slower than the g_ANI implementation. Given the more complex functional form as compared to using Behler Parrinello type description possible improvements might be limited.
+- The current implementation is 6-7 times slower than the g_ANI implementation. Given the more complex functional form as compared to using a Behler-Parrinello type description possible improvements might be limited.
 - This is not as well tested as the g_ANI NNP.
 
 ### Weights for the NNP described
