@@ -1,0 +1,10 @@
+=readme.ag.txt
+*.egg-info
+__pycache__
+*.log
+oeomega_classic.parm
+oeomega_classic.rpt
+oeomega_classic_status.txt
+out.sdf
+szybki.param
+szybki.status

@@ -1,0 +1,55 @@
+{
+"rem":    "This is for the testing framework do not change parameters",
+
+
+
+"Precision":        { "nnpPrecision": 32, "sumPrecision": 64 },
+
+"trainData": {
+   "type":             "ANI-1",
+   "dataDir":          ["c:/tmp/ANI", "$smdd_dir/CDD/projects/ml_qm/DataSets/ANI-1_release/"],
+   "iFile":            "ani_gdb_s0[1234].h5",
+   "tFile":            "ani1_gdb10_ts.h5",
+   "valSmilesFile":    "data/all_val.txt.gz",
+   "tstSmilesFile":    "data/all_tst.txt.gz",
+   "maxEnergy_kcal":   20,
+   "skipFactor":       100
+},
+
+
+"batch.dropLast":   false,
+"atomTypes":        ["H", "C", "N", "O"],
+
+"radialBasis":      "BumpRadialBasis",
+"radialBasisParam": { "nCenters": 2, "centerMin": 1.5, "centerMax": 3, "centers": null,
+                      "halfWidth": 1.5, "maxWidthMultiplier": 3 },
+
+"rem-angularBasis":     "BumpAngularBasis",
+"rem-angularBasisParam":{ "nAngles": 2, "nRadial": 2, "rMin": 1.5, "rMax": 3,
+                      "halfWidth": 1.5, "maxWidthMultiplier": 3, "angleHalfWidth": 1.57, "maxAngleWidthMultiplier": 3,
+                      "rCenters": null, "aCenters": null },
+
+"activation":       "Gaussian",
+"dropOutPct":       10,
+"layers":           [128,128,64],
+"layers":          [{ "out_features": 128 },
+                    { "out_features": 128 },
+                    { "out_features": 64  } ],
+"hasBias":          true,
+
+"optType":          "AdamW",
+"optParam":         { "lr": 0.005, "weight_decay": 1e-6  },
+"scheduler":        "CosineLRWithRestarts",
+"schedulerParam":   { "batch_size":2560, "epoch_size": 6000000, "restart_period": 5, "t_mult":1.2, "verbose":true },
+
+"loss":             "MSELoss",
+"lossParam":        {  },
+
+"regularizer":      "Clipper",
+"regularizeParam":  { "maxValue": 3.0,
+                    "paramNamePattern": ".+ AtNet\\..+ layer\\d+.*" },
+"bbatchSize":        1,
+"batchSize":         2560,
+"epochs":            10000
+
+}

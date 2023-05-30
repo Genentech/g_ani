@@ -1,0 +1,86 @@
+{
+"Precision":        { "nnpPrecision": 32, "sumPrecision": 32 },
+
+"networkFiles":     [{ "file": "best_000625.bb.3.nnp",
+                       "layers": [{ "out_features": 1149 },
+                                  { "out_features": 389  },
+                                  { "out_features": 263, "dropOutPct": 4 },
+                                  { "out_features": 503, "dropOutPct": 4,  "batchNormParam": null} ]},
+                     { "file": "best_000616.bb.31.nnp",
+                       "layers": [{ "out_features": 1153 },
+                                  { "out_features": 383  },
+                                  { "out_features": 257, "dropOutPct": 4 },
+                                  { "out_features": 521, "dropOutPct": 4,  "batchNormParam": null} ]},
+                     { "file": "best_000515.bb.322.nnp",
+                       "layers": [{ "out_features": 1149,                "activation": "CELU", "activationParam": {"alpha": 0.6}},
+                                  { "out_features": 389,                 "activation": "CELU", "activationParam": {"alpha": 0.6}},
+                                  { "out_features": 263, "dropOutPct": 4,"activation": "CELU", "activationParam": {"alpha": 0.6}},
+                                  { "out_features": 509, "dropOutPct": 4,"activation": "CELU", "activationParam": {"alpha": 0.6}, "batchNormParam": null} ]},
+                     { "file": "best_000429.bb.324.nnp",
+                       "layers": [{ "out_features": 1149 },
+                                  { "out_features": 389  },
+                                  { "out_features": 263, "dropOutPct": 4 },
+                                  { "out_features": 509, "dropOutPct": 4,  "batchNormParam": null} ]},
+                     { "file": "best_000765.bb.33.nnp",
+                       "layers": [{ "out_features": 1153 },
+                                  { "out_features": 383  },
+                                  { "out_features": 263, "dropOutPct": 4 },
+                                  { "out_features": 509, "dropOutPct": 4,  "batchNormParam": null} ]},
+                     { "file": "best_000522.bb.34.nnp",
+                       "layers": [{ "out_features": 1149 },
+                                  { "out_features": 389  },
+                                  { "out_features": 257, "dropOutPct": 4 },
+                                  { "out_features": 509, "dropOutPct": 4,  "batchNormParam": null} ]},
+                     { "file": "best_000696.bb.35.nnp",
+                       "layers": [{ "out_features": 1153 },
+                                  { "out_features": 389  },
+                                  { "out_features": 257, "dropOutPct": 4 },
+                                  { "out_features": 503, "dropOutPct": 4,  "batchNormParam": null} ]},
+                     { "file": "best_000750.bb.36.nnp",
+                       "layers": [{ "out_features": 1149 },
+                                  { "out_features": 383  },
+                                  { "out_features": 263, "dropOutPct": 4 },
+                                  { "out_features": 503, "dropOutPct": 4,  "batchNormParam": null} ]}
+                    ],
+
+"batch.dropLast":   true,
+"atomTypes":        ["H", "C", "N", "O", "F", "S", "Cl" ],
+
+
+"radialBasis":      "GaussianRadialBasis",
+"rem":              "halfWidth = 0.416 => Eta=16)",
+"radialBasisParam": { "nCenters": 16, "centerMin": 0.9, "centerMax": 4.93, "centers": null,
+                      "halfWidth": 0.816, "cutoff": 5.2, "optimizeParam": false, "optimizePositions": false },
+
+"angularBasis":     "GaussianAngularBasis",
+"rem":              " nAngles, nRadial, rMin, rMax, halfWidth, angleHalfWidth[Pi] 0.4286 => 6, cutoff",
+"angularBasisParam":{ "nAngles": null, "nRadial": 8, "rMin": 0.9, "rMax": 3.08, "halfWidth": 0.68, "angleHalfWidth": 0.27, "cutoff": 3.8,
+                      "rCenters": null, 
+                      "aCenters": [1.9634954e-01,5.8904862e-01,9.8174770e-01,1.3744468e+00,1.7671459e+00,2.1598449e+00,2.5525440e+00,2.9452431e+00],
+                      "optimizeParam": [ "rem-rCenter","rem-aCenter", "rem-zeta" ,"rem-nEta" ] },
+
+"activation":       "SSP",
+"activationParam":  {},
+"dropOutPct":       1,
+"batchNormParam":   [],
+
+"hasBias":          false,
+"initWeightMethod": "xavier_normal",
+ 
+"optType":          "AdamW",
+"optParam":         { "lr": 0.00015, "weight_decay": 1e-6 },
+"scheduler":        "CosineLRWithRestarts",
+"schedulerParam":   { "batch_size":2560, "epoch_size": 110473909, "restart_period": 5, "t_mult":1.2, "verbose":true },
+
+"loss":             "ExpLossKhan",
+"lossParam":        {  },
+
+"regularizer":      "None",
+"mem_gb":           24,
+"memoryParam":      { "const": 8000000000 , "perConf": 2250599, 
+                      "nA_x_nC": 160613,    "nA2_x_nC": 0, "nA3_x_nC": 23 },
+                      
+"bytesPerMol":      180,  "rem": "deprecated",
+"moleculeMemory_GB": 13,  "rem": "deprecated" 
+
+}

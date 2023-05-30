@@ -21,6 +21,8 @@ my($omegaOpt ) = "-includeInput true -sampleHydrogens -searchff mmff94s -ewindow
 my($NNPCommand) = "sdfMOptimizer.py";
 my($nnpOpt) = "-maxiter 2000 -nGPU 1 -trust 1";
 my($nnpConf) = "data/nnp/ani22/bb/bb.3.json";
+if( ! -e $nnpConf ) { $nnpConf = "$ENV{GANI_DIR}/$nnpConf"; }
+if( ! -e $nnpConf ) { die("Could not find NNP configuration: $nnpConf\n"); }
 
 $use = <<USE;
 sdfNNPConfAnalysis.pl [-ref alignRef.sdf] [-nnpOpt s] [-omegaOpt s]
