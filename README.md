@@ -65,14 +65,14 @@ This implementation follows the definition by Boström et.al. (Conformational en
 - A conformational search is performed by enumerating conformers with omega and minimizing them with the NNP. By default up to 650 conformations are enumerated to be complete.
 - The conformation with the lowest energy is identified and defines the **"global minimum"** conformation. All energies reported are relative to this conformation.
 - The input conformation is minimized to yield the **"local minimum"**
-- The hydrogens are minimized on the input conformation to yield the **"Hydrogen optimized""** conformation (HOpt).
+- The hydrogens are minimized on the input conformation to yield the **"Hydrogen optimized"** conformation (HOpt).
 - The hydrogen optimized conformation is optimized using 4 decreasing quadratic retaining potentials. This will yield conformations with increasing relaxation and decreasing relative energy. The relaxation will happen along the most constrained part of the molecule, thus highlighting areas of strain. These are the **"constrained minima"**
-- If the `-sampleOtherMin` option is given **"Other minima"** are returned. these minima are on a pareteo minimum curve that optimizes RMSD or relative energy. These allow the identification of minima that are similar to the input conformation and have low relative energy or low RMSD.
+- If the `-sampleOtherMin` option is given **"Other minima"** are returned. These minima are on a pareteo minimum curve that optimizes RMSD or relative energy. These allow the identification of minima that are similar to the input conformation and have low relative energy or low RMSD.
 
-By looking at the conformations from first to last the relaxation along the most strained features of the input conformations can be identified. Order is as follows:
+By looking at the conformations from first to last the relaxation along the most strained features of the input conformations can be identified. The order is as follows:
 
 1. Input Conformation
-2. Hydrogen atoms optimized input (Hopt)
+2. Hydrogen atoms optimized input (HOpt)
 3. 4 constrained minimized conformation with decreasing constrains
 4. Local minimum
 5. Global minimum<br/>
@@ -80,13 +80,13 @@ By looking at the conformations from first to last the relaxation along the most
 6. Other minima (as described above)<br/>
    These minima should be evaluated to see if there are minor changes that preserve the overall structure but largely reduce the strain.
    
-The output file will contain the following fields:
+The output sdf file will contain the following new fields:
 
-   - **type** one of the following specifying the type of this conformer (cf. above):<br/>
+   - **type**: one of the following specifying the type of this conformer (cf. above):<br/>
       input, H Opt, cstr 50, cstr 10, cstr 2, cstr 0.4, loc Min, glb Min, oth *
-   - **inRMSD** rmsd of this conformation to the input conformation [A]
-   - **deltaE** relative energy of this conformation ot the global minimum [kcal/mol]
-   - **NNP_Energy_kcal_mol** absolute energy of this conformation as computed with the g_ani NNP.
+   - **inRMSD**: rmsd of this conformation to the input conformation [A]
+   - **deltaE**: relative energy of this conformation ot the global minimum [kcal/mol]
+   - **NNP_Energy_kcal_mol**: absolute energy of this conformation as computed with the g_ani NNP.
 
 ### Example
 
@@ -97,7 +97,7 @@ The following ligand conformation was retrieved from the PDB ([5BVF](https://www
 <table><tr><td align="center"><img src='documentation/5bvf/5bvf.gif'/></td>
            <td align="center"><img src='documentation/5bvf/5bvf_WithInput.gif'/></td></tr>
        <tr><td align="center">Strain analysis animation</td>
-           <tdalign="center">Strain analysis animation with overlay of input</td></tr>
+           <td align="center">Strain analysis animation with overlay of input</td></tr>
        <tr><td colspan='2'>
          Result of strain energy computation on the ligand in 5BVF. As can be seen the largest train is on the phenyl ring on the right. It clearly relaxes from the position in the input conformation to the conformation in the constraint minima (cnst 0.4). Note that the global minimum exhibits an intramolecular hydrogen bond. The energy of the global minimum is probably not reflective of the energy in solution phase as the NNP was trained on gas phase DFT calculations. Thus the strain in this calculation might be overestimated.</br>
          RMSD to Input [A]. Relative Energy (dE) to Global Minimum [kcal/mol]</td></tr></table>
