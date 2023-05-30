@@ -103,7 +103,7 @@ The following ligand conformation was retrieved from the PDB ([5BVF](https://www
          RMSD to Input [A]. Relative Energy (dE) to Global Minimum [kcal/mol]</td></tr></table>
            
 ### Explanation
-The constraint minimization account for multiple non-physical sources of strain:
+The constraint minimizations account for multiple non-physical sources of strain:
 
 - Differences between the methods used to generate the input conformation and the NNP used in evaluating the strain. Small changes in the bond length deemed to be optimal between two atoms would yield very high energy differences. Allowing the slight relaxation will remove this artifact.
 - Molecular flexibility of the protein and ligand always allow for some movement.
@@ -116,10 +116,10 @@ The following boxplot shows the distribution of the strain energy of these 750 c
 
 ![BoxPlot](documentation/5bvf/BoxPlot.jpg)
 
-As can be expected the more relaxation is allowed the lower the strain energy is. In looking at many strain energy calculation we have determined that a relaxation of 0.4 A results in a conformation that is very close to the input conformation but in which many artifacts causing strain have been released. We therefore recommend looking at the energy of the conformations with less than 0.4 A deviation from the input first. If the lowest energy of these conformation is below 2-3 kcal/mol the conformation is considered to have a low strain energy. For conformations with strain energies at 0.4A > 3 kcal/mol we recommend looking at the relaxation pattern and trying to understand which parts of the molecule are contributing most to the strain. Structural changes to the molecule should be considered to reduce the strain. The statistics above suggest that compounds with strains (at 0.4A) > 2-3kcal/mol have a small likelihood of being consistent with crystallographically observed conformations.
+As can be expected the more relaxation is allowed the lower the strain energy. In looking at many strain energy calculations we have determined that a relaxation of 0.4 A results in a conformation that is very close to the input conformation but in which many artifacts causing strain have been relaxed. We therefore recommend looking at the energy of the conformations with less than 0.4 A deviation from the input first. If the lowest energy of these conformations is below 2-3 kcal/mol the conformation is considered to have a low strain energy. For conformations with strain energies at 0.4A > 3 kcal/mol we recommend looking at the relaxation pattern and trying to understand which parts of the molecule are contributing most to the strain. Structural changes to the molecule should be considered to reduce the strain. The statistics above suggest that compounds with strains (at 0.4A) > 2-3kcal/mol have a small likelihood of being consistent with crystallographically observed conformations.
 
 ### Comparison to force field based implementation
-We ran the same strain energy computation using the MMFF94S force field using the sheffield solvation model instead of the NNP on the 750 conformation form the PDB described above. The following graph compares the results:
+We ran the same strain energy computation using the MMFF94S force field (as implemented in the [chemalot package](https://github.com/chemalot/chemalot) using the sheffield solvation model instead of the NNP on the 750 conformation form the PDB described above. The following graph compares the results:
 
 ![g_ANI vs MMFF94S](documentation/GANNI_MMFF.jpg)
 
