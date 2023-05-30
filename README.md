@@ -2,7 +2,7 @@
 
 g_ANI contains a reimplementation of the ANI Neural Net Potential developed at Genentech.
 It also contains a command line tool [sdfNNPConfAnalysis.pl](iscripts/sdfNNPConfAnalysis.pl)
-computes the strain in a small molecule ligand conformation. This allows the computation of strain energy with QM accuracy in just a few minutes on a GPU while analyzing hundredths of conformations.
+that computes the strain in a small molecule ligand conformation. This allows the computation of strain energy with QM accuracy in just a few minutes on a GPU while analyzing hundredths of conformations.
 
 Relevant references are:
    - [ANI-1: an extensible neural network potential with DFT accuracy at force field computational cost](https://pubs.rsc.org/en/content/articlelanding/2017/SC/C6SC05720A)
@@ -42,18 +42,16 @@ Relevant references are:
       pip install -e .
       ```
    - To run the strain energy calculation you need the following tools from [OpenEye](https://www.eyesopen.com/).<br/>
-     Note: you can run minimizations u
+     Note: you can run minimizations using
      sdfMOptimizer.py and single point calculations with sdfNNP.py without openeye tools
            or licenses as the cdd_chem package will use RDKit if OEChem is not available.
    
        - omega
        - szybki
 
-   - All NNP calculations will run significantly faster if you have a GPU available on your computer. If a GPU is not available the slower
-   - 
-   -   CPU implementation will be used.
+   - All NNP calculations will run significantly faster if you have a GPU available on your computer. If a GPU is not available the slower   CPU implementation will be used.
 
-   - You will need a ~8GB of memory to run the example below. Be aware that to little memory will cause errors with unexpected messages.
+   - You will need a ~8GB of memory to run the example below. Be aware that too little memory will cause errors with unexpected messages.
    - Run test example:
    ```
    scripts/sdfNNPConfAnalysis.pl -in tests/data/CCCC.sdf -out out.sdf -sampleOtherMin
@@ -107,18 +105,18 @@ The following ligand conformation was retrieved from the PDB ([5BVF](https://www
 ### Explanation
 The constraint minimization account for multiple non-physical sources of strain:
 
-- Differences between the method used to generate the input conformation and the NNP used in evaluating the strain. Small changes in the bond length deemed to be optimal between two atoms would yield very high energy differences. Allowing the slight relaxation will remove this artifact.
+- Differences between the methods used to generate the input conformation and the NNP used in evaluating the strain. Small changes in the bond length deemed to be optimal between two atoms would yield very high energy differences. Allowing the slight relaxation will remove this artifact.
 - Molecular flexibility of the protein and ligand always allow for some movement.
 - Crystal structure refinement has an intrinsic uncertainty.
 
 ### Statistics
 
-We have computed the strain energy with the this method for 750 neutral ligands from PDB database with good resolution.
-The following boxplot shows the distribution of the strain energy of these 750 conformations for different values of maximum relaxation. E.g. the box at 0.4 A maxRMSD was computed by applying the method described above. For each of the 750  input conformation. Only conformations within 0.4 A were retained and the lowest relative energy is reported.
+We have computed the strain energy with this method for 750 neutral ligands from PDB database with good resolution.
+The following boxplot shows the distribution of the strain energy of these 750 conformations for different values of maximum relaxation. E.g. the box at 0.4 A maxRMSD was computed by applying the method described above. For each of the 750 input conformation. Only conformations within 0.4 A were retained and the lowest relative energy is reported.
 
 ![BoxPlot](documentation/5bvf/BoxPlot.jpg)
 
-As can be expected the more relaxation is allowed the lower the strain energy is. In looking at many strain energy calculation we have determined that a relaxation of 0.4 A results in a conformation that is very close to the input conformation but in which many artifacts causing strain have been released. We therefore recommend looking at the energy of the conformations with less than 0.4 A deviation from the input first. If the lowest energy of these conformation is below 2-3 kcal/mol the conformation is considered to have a low strain energy. For conformations with strain energies at 0.4A > 3 kcal/mol we recommend looking at the relaxation pattern and  trying to understand which parts of the molecule are contributing most to the strain. Structural changes to the molecule should be considered to reduce the strain. The statistics above suggest that compounds with strains (at 0.4A) > 2-3kcal/mol have a small likelihood of being consistent with crystallographically observed conformations.
+As can be expected the more relaxation is allowed the lower the strain energy is. In looking at many strain energy calculation we have determined that a relaxation of 0.4 A results in a conformation that is very close to the input conformation but in which many artifacts causing strain have been released. We therefore recommend looking at the energy of the conformations with less than 0.4 A deviation from the input first. If the lowest energy of these conformation is below 2-3 kcal/mol the conformation is considered to have a low strain energy. For conformations with strain energies at 0.4A > 3 kcal/mol we recommend looking at the relaxation pattern and trying to understand which parts of the molecule are contributing most to the strain. Structural changes to the molecule should be considered to reduce the strain. The statistics above suggest that compounds with strains (at 0.4A) > 2-3kcal/mol have a small likelihood of being consistent with crystallographically observed conformations.
 
 ### Comparison to force field based implementation
 We ran the same strain energy computation using the MMFF94S force field using the sheffield solvation model instead of the NNP on the 750 conformation form the PDB described above. The following graph compares the results:
