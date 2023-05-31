@@ -45,7 +45,6 @@ setup(
     description=" ml_qm contains the Genentech Neural Net Potential Code",
     entry_points={
         'console_scripts': [
-            'sdfGeometric.py=ml_qm.optimize.geometric.SDFGeomeTRIC:main',
             'sdfMOptimizer.py=ml_qm.optimize.SDFMOptimizer:main',
             'sdfNNP.py=ml_qm.optimize.SDF_NNP:main',
             'sdfNNPKa.py=ml_qm.pKaNet.SDF_NN_PKa:main',
