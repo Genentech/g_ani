@@ -213,11 +213,11 @@ I would like to acknowledge their contribution and thank them for all the input 
 |------------------------|-----------------------|
 | Man-Ling Lee           |   Adrian Roitberg     |
 | Ben Sellers            |   Justin Smith        |
-| Petr Votava            |   David Mobley        |
-| Jeff Blaney            |   Lee-Ping Wang       |
-| Andrew Whitehead       |   Olexandr Isayev     |
-| Andrey Shaw            |   Peter Eastman       |
-| Dan Ortwine            |                       |
+| Petr Votava            |   Ping Lin            |
+| Jeff Blaney            |   David Mobley        |
+| Andrew Whitehead       |   Lee-Ping Wang       |
+| Andrey Shaw            |   Olexandr Isayev     |
+| Dan Ortwine            |   Peter Eastman       |
 | Erik Evensen           |                       |
 | Erin Chistensen        |                       |
 | Kai Liu                |                       |
